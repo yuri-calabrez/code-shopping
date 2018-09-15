@@ -5,6 +5,7 @@ namespace CodeShopping\Http\Controllers\Api;
 use CodeShopping\Models\Product;
 use CodeShopping\Http\Controllers\Controller;
 use CodeShopping\Http\Requests\ProductRequest;
+use CodeShopping\Http\Resources\ProductResource;
 
 class ProductController extends Controller
 {
@@ -15,7 +16,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return Product::all();
+        return ProductResource::collection(Product::paginate(10));
     }
 
     /**
@@ -28,7 +29,7 @@ class ProductController extends Controller
     {
         $product = Product::create($request->all());
         $product->refresh();
-        return $product;
+        return new ProductResource($product);
     }
 
     /**
@@ -39,7 +40,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return $product;
+        return new ProductResource($product);
     }
 
     /**
