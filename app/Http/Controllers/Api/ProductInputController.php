@@ -8,6 +8,7 @@ use CodeShopping\Models\Product;
 use CodeShopping\Models\ProductInput;
 use CodeShopping\Http\Resources\ProductResource;
 use CodeShopping\Http\Requests\ProductInputRequest;
+use CodeShopping\Http\Resources\ProductInputResource;
 
 class ProductInputController extends Controller
 {
@@ -16,9 +17,15 @@ class ProductInputController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Product $product)
+    public function index()
     {
-        //
+        $inputs = ProductInput::with('product')->paginate();
+        return ProductInputResource::collection($inputs);
+    }
+
+    public function show(ProductInput $input)
+    {
+        return new ProductInputResource($input);
     }
 
     /**
@@ -27,35 +34,9 @@ class ProductInputController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ProductInputRequest $request, Product $product)
+    public function store(ProductInputRequest $request)
     {
-        $amount = $request->get('amount');
-        ProductInput::create(['amount' => $amount, 'product_id' => $product->id]);
-        $product->stock += $amount;
-        $product->save();
-        return response()->json(new ProductResource($product), 201);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        $input = ProductInput::create($request->all());
+        return response()->json(new ProductInputResource($input), 201);
     }
 }
