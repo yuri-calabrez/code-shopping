@@ -5,6 +5,6 @@ use CodeShopping\Models\ProductInput;
 
 $factory->define(ProductInput::class, function (Faker $faker) {
     return [
-        'amount' => $faker->numberBetween(5, 20)
+        'amount' => $faker->numberBetween(1, 20)
     ];
 });
