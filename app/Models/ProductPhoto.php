@@ -4,6 +4,7 @@ namespace CodeShopping\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Database\Eloquent\Collection;
 
 class ProductPhoto extends Model
 {
@@ -24,6 +25,13 @@ class ProductPhoto extends Model
         return storage_path(self::PRODUCTS_PATH."/".$productId);
     }
 
+    public static function createWithPhotoFiles(int $productId, array $files): Collection
+    {
+        self::uploadFiles($productId, $files);
+        $photos = self::createPhotoModels($productId, $files);
+        return new Collection($photos);
+    }
+
     public static function uploadFiles(int $productId, array $files)
     {
         $dir = self::photosDir($productId);
@@ -33,10 +41,23 @@ class ProductPhoto extends Model
         }
     }
 
+    private static function createPhotoModels(int $productId, array $files): array
+    {
+        $photos = [];
+        /**@var UploadedFile $file */
+        foreach ($files as $file) {
+            $photos[] = self::create([
+                'file_name' => $file->hashName(),
+                'product_id' => $productId
+            ]);
+        }
+        return $photos;
+    }
+
     public function getPhotoUrlAttribute()
     {
         $path = self::photosDir($this->product_id);
-        return asset("umapasta/{$path}/{$this->file_name}");
+        return asset("storage/{$path}/{$this->file_name}");
     }
 
     public static function photosDir(int $productId): string
