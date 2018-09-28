@@ -40,6 +40,38 @@ class ProductPhoto extends Model
         }
     }
 
+    public function updatePhoto(UploadedFile $file)
+    {
+        try {
+            self::uploadFiles($this->product_id, [$file]);
+            \DB::beginTransaction();
+            $this->deleteSingleFile();
+            $this->file_name = $file->hashName();
+            $this->save();
+            \DB::commit();
+            return $this;
+        } catch (\Exception $e) {
+            \DB::rollBack();
+            self::deleteFiles($productId, [$file]);
+            throw $e;
+        }
+    }
+
+    public function deletePhoto()
+    {
+        $this->deleteSingleFile();
+        $this->delete();
+    }
+
+    public function deleteSingleFile()
+    {
+        $path = self::photosPath($this->product_id);
+        $photoPath = "{$path}/{$this->file_name}";
+        if (file_exists($photoPath)) {
+            \File::delete($photoPath);
+        }
+    }
+
     private static function deleteFiles(int $productId, array $files)
     {
         /**@var UploadedFile $file */
