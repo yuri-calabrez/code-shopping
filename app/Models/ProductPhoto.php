@@ -17,7 +17,7 @@ class ProductPhoto extends Model
 
     public function product()
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(Product::class)->withTrashed();
     }
 
     public static function photosPath($productId)
@@ -57,10 +57,18 @@ class ProductPhoto extends Model
         }
     }
 
-    public function deletePhoto()
+    public function deletePhoto(): bool
     {
-        $this->deleteSingleFile();
-        $this->delete();
+        try {
+            \DB::beginTransaction();
+            $this->deleteSingleFile();
+            $result = $this->delete();
+            \DB::commit();
+            return $result;
+        } catch (\Exception $e) {
+            \DB::rollBack();
+            throw $e;
+        }
     }
 
     public function deleteSingleFile()
