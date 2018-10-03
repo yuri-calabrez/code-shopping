@@ -7,17 +7,21 @@ use Illuminate\Http\Request;
 use CodeShopping\Http\Controllers\Controller;
 use CodeShopping\Http\Resources\UserResource;
 use CodeShopping\Http\Requests\UserRequest;
+use CodeShopping\Common\OnlyTrashedTrait;
 
 class UserController extends Controller
 {
+    use OnlyTrashedTrait;
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return UserResource::collection(User::paginate());
+        $query = User::query();
+        $query = $this->onlyTrashedIfRequested($request, $query);
+        return UserResource::collection($query->paginate());
     }
 
 
@@ -68,6 +72,12 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
+        return response()->json([], 204);
+    }
+
+    public function restore(User $user)
+    {
+        $user->restore();
         return response()->json([], 204);
     }
 }
