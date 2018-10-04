@@ -29,7 +29,7 @@ class UserRequest extends FormRequest
             'email' => 'required|max:255|email|unique:users,email,'.$id
         ];
         if (!$id) {
-            $rules = array_merge($rules, ['password' => 'required|min:16']);
+            $rules = array_merge($rules, ['password' => 'required|max:16']);
         }
 
         return $rules;
