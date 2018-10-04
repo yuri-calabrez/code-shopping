@@ -8,9 +8,11 @@ use CodeShopping\Http\Requests\ProductRequest;
 use CodeShopping\Http\Resources\ProductResource;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
+use CodeShopping\Common\OnlyTrashedTrait;
 
 class ProductController extends Controller
 {
+    use OnlyTrashedTrait;
     /**
      * Display a listing of the resource.
      *
@@ -73,11 +75,9 @@ class ProductController extends Controller
         return response([], 204);
     }
 
-    private function onlyTrashedIfRequested(Request $request, Builder $query)
+    public function restore(Product $product)
     {
-        if ($request->get('trashed') == 1) {
-            $query = $query->onlyTrashed();
-        }
-        return $query;
+        $product->restore();
+        return response()->json([], 204);
     }
 }

@@ -26,10 +26,10 @@ class UserRequest extends FormRequest
         $id = $this->route('user') ? json_decode($this->route('user'))->id : null;
         $rules = [
             'name' => 'required|max:255',
-            'email' => 'required|email|unique:users,email,'.$id
+            'email' => 'required|max:255|email|unique:users,email,'.$id
         ];
         if (!$id) {
-            $rules = array_merge($rules, ['password' => 'required|min:6']);
+            $rules = array_merge($rules, ['password' => 'required|max:16']);
         }
 
         return $rules;
