@@ -1,8 +1,10 @@
-<form class="form-signin">
+<form class="form-signin" (submit)="submit()">
   <h1 class="h3 mb-3 font-weight-normal">Code Shopping - Login</h1>
   <label for="email" class="sr-only">E-mail</label>
-  <input type="email" id="email" class="form-control" placeholder="Digite o e-mail" required autofocus>
+  <input type="email" name="email" [(ngModel)]="credentials.email" id="email" 
+    class="form-control" placeholder="Digite o e-mail" required autofocus>
   <label for="password" class="sr-only">Senha</label>
-  <input type="password" id="password" class="form-control" placeholder="Digite sua senha" required>
+  <input type="password" id="password" name="password" [(ngModel)]="credentials.password" 
+    class="form-control" placeholder="Digite sua senha" required>
   <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
 </form>
