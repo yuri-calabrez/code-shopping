@@ -17,7 +17,7 @@ class CorsMiddleware
     {
         if ($request->is('api/*')) {
             header('Access-Control-Allow-Origin: *');
-            header('Access-Control-Allow-Headers: Content-Type');
+            header('Access-Control-Allow-Headers: Content-Type, Authorization');
         }
         return $next($request);
     }

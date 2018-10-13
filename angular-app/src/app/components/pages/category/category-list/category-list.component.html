@@ -1,0 +1,28 @@
+<div class="row">
+  <h1>Listagem de categorias</h1>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <td colspan="5">
+          <button class="btn btn-primary">Nova categoria</button>
+        </td>
+      </tr>
+      <tr>
+        <th style="width: 5%;">ID</th>
+        <th style="width: 65%;">Nome</th>
+        <th style="width: 10%;">Status</th>
+        <th style="width: 10%;">Criado em</th>
+        <th style="width: 10%;">Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let category of categories"> 
+        <td>{{ category.id }}</td>
+        <td>{{ category.name }}</td>
+        <td>{{ category.active }}</td>
+        <td>{{ category.created_at.date }}</td>
+        <td>Editar | Excluir</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
