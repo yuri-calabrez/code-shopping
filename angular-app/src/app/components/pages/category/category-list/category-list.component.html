@@ -19,8 +19,8 @@
       <tr *ngFor="let category of categories"> 
         <td>{{ category.id }}</td>
         <td>{{ category.name }}</td>
-        <td>{{ category.active }}</td>
-        <td>{{ category.created_at.date }}</td>
+        <td><i class="fas" [ngClass]="{'fa-check': category.active, 'fa-times': !category.active}"></i></td>
+        <td>{{ category.created_at.date | date: 'dd/MM/yyyy' }}</td>
         <td>Editar | Excluir</td>
       </tr>
     </tbody>
