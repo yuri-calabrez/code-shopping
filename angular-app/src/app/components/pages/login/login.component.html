@@ -1,5 +1,5 @@
-<div class="mt-4 col col-md-4 offset-4">
-  <app-alert-error>Credenciais inválidas</app-alert-error>
+<div class="mt-4 col col-md-4 offset-4" *ngIf="showMessageError">
+  <app-alert-error [(show)]="showMessageError">Credenciais inválidas</app-alert-error>
 </div>
 
 <form class="form-signin" (submit)="submit()">
