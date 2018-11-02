@@ -1,6 +1,6 @@
 <form (submit)="submit()">
   <app-modal (onHide)="hideModal($event)">
-    <h5 modal-title>Nova categoria</h5>
+    <h5 modal-title>Editar categoria - {{ category.name }}</h5>
 
     <div modal-body>
       <div class="modal-body">
@@ -17,7 +17,7 @@
 
     <div modal-footer>
       <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-      <button type="submit" class="btn btn-primary">Incluir</button>
+      <button type="submit" class="btn btn-primary">Editar</button>
     </div>
   </app-modal>
 </form>

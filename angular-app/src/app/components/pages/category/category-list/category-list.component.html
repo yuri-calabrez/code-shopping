@@ -21,7 +21,16 @@
         <td>{{ category.name }}</td>
         <td><i class="fas" [ngClass]="{'fa-check': category.active, 'fa-times': !category.active}"></i></td>
         <td>{{ category.created_at.date | date: 'dd/MM/yyyy' }}</td>
-        <td>Editar | Excluir</td>
+        <td>
+          <a href="javascript:void(0);" (click)="showModalEdit(category.id)">
+            <i class="fas fa-edit"></i>
+          </a>
+        </td>
+        <td>
+          <a href="javascript:void(0);" (click)="showModalDelete(category.id)">
+            <i class="fas fa-trash"></i>
+          </a>
+        </td>
       </tr>
     </tbody>
   </table>
@@ -30,3 +39,13 @@
 <app-category-new-modal 
   (onSuccess)="onInsertSuccess($event)"
   (onError)="onInsertError($event)"></app-category-new-modal>
+
+  <app-category-edit-modal 
+    [categoryId]="categoryId"
+    (onSuccess)="onEditSuccess($event)"
+    (onError)="onEditError($event)"></app-category-edit-modal>
+
+<app-category-delete-modal
+  [categoryId]="categoryId"
+  (onSuccess)="onDeleteSuccess($event)"
+  (onError)="onDeleteError($event)"></app-category-delete-modal>

@@ -10,7 +10,8 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 export class CategoryNewModalComponent implements OnInit {
 
   category: Object = {
-    name: ''
+    name: '',
+    active: true
   }
 
   @ViewChild(ModalComponent)  modal: ModalComponent
