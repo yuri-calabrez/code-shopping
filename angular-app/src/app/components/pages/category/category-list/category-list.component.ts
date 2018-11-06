@@ -3,6 +3,8 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { CategoryNewModalComponent } from '../category-new-modal/category-new-modal.component';
 import { CategoryEditModalComponent } from '../category-edit-modal/category-edit-modal.component';
 import { CategoryDeleteModalComponent } from '../category-delete-modal/category-delete-modal.component';
+import { CategoryHttpService } from 'src/app/services/http/category-http.service';
+import { Category } from 'src/app/models';
 
 @Component({
   selector: 'app-category-list',
@@ -11,7 +13,7 @@ import { CategoryDeleteModalComponent } from '../category-delete-modal/category-
 })
 export class CategoryListComponent implements OnInit {
 
-  categories: Array<any> = []
+  categories: Array<Category> = []
   categoryId: number
 
   @ViewChild(CategoryNewModalComponent)
@@ -23,19 +25,14 @@ export class CategoryListComponent implements OnInit {
   @ViewChild(CategoryDeleteModalComponent)
   categoryDeleteModal: CategoryDeleteModalComponent
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, public categoryHttpService: CategoryHttpService) { }
 
   ngOnInit() {
     this.getCategories()
   }
 
   getCategories() {
-    const token = window.localStorage.getItem('token')
-    this.http.get<{data: Array<any>}>('http://localhost:8000/api/categories', {
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    })
+    this.categoryHttpService.list()
       .subscribe(res => this.categories = res.data)
   }
 
