@@ -9,11 +9,13 @@ import { map } from 'rxjs/operators'
 })
 export class CategoryHttpService {
 
+  private baseUrl = 'http://localhost:8000/api/categories'
+
   constructor(private http: HttpClient) { }
 
   list(): Observable<{data: Array<Category>}> {
     const token = window.localStorage.getItem('token')
-    return this.http.get<{data: Array<Category>}>('http://localhost:8000/api/categories', {
+    return this.http.get<{data: Array<Category>}>(this.baseUrl, {
       headers: {
         'Authorization': `Bearer ${token}`
       }
@@ -23,7 +25,7 @@ export class CategoryHttpService {
   get(id: number): Observable<Category> {
     const token = window.localStorage.getItem('token')
     return this.http
-      .get<{data: Category}>(`http://localhost:8000/api/categories/${id}`, {
+      .get<{data: Category}>(`${this.baseUrl}/${id}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -33,16 +35,37 @@ export class CategoryHttpService {
       )
   }
 
-  create() {
-
+  create(data: Category): Observable<Category> {
+    const token = window.localStorage.getItem('token')
+    return this.http.post<{data: Category}>(this.baseUrl, data,  {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+    .pipe(
+      map(response => response.data)
+    )
   }
 
-  update() {
-
+  update(id: number, data: Category): Observable<Category> {
+    const token = window.localStorage.getItem('token')
+    return this.http.put<{data: Category}>(`${this.baseUrl}/${id}`, data,  {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+    .pipe(
+      map(response => response.data)
+    )
   }
 
-  destroy() {
-
+  destroy(id: number): Observable<any> {
+    const token = window.localStorage.getItem('token')
+    return this.http.delete(`${this.baseUrl}/${id}`,  {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
   }
 
 
