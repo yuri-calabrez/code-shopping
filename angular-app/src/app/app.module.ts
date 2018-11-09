@@ -5,6 +5,8 @@ import { RouterModule, Routes } from '@angular/router'
 import { FormsModule } from '@angular/forms'
 import { HttpClientModule } from '@angular/common/http';
 
+import { NgxPaginationModule } from 'ngx-pagination'
+
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/pages/login/login.component';
 import { CategoryListComponent } from './components/pages/category/category-list/category-list.component';
@@ -41,7 +43,8 @@ const routes: Routes = [
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    NgxPaginationModule
   ],
   providers: [],
   bootstrap: [AppComponent]
