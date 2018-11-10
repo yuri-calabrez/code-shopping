@@ -1,0 +1,31 @@
+<form (submit)="submit()">
+  <app-modal (onHide)="hideModal($event)">
+    <h5 modal-title>Novo produto</h5>
+
+    <div modal-body>
+      <div class="modal-body">
+          <div class="form-group">
+            <label for="name">Nome</label>
+            <input type="text" [(ngModel)]="product.name" class="form-control" id="name" name="name" required>
+          </div>
+          <div class="form-group">
+            <label for="description">Descrição</label>
+            <input type="text" [(ngModel)]="product.description" class="form-control" id="description" name="description" required>
+          </div>
+          <div class="form-group">
+            <label for="price">Preço</label>
+            <input type="text" [(ngModel)]="product.price" class="form-control" id="price" name="price" required>
+          </div>
+          <div class="form-group form-check">
+            <input type="checkbox" [(ngModel)]="product.active" class="form-check-input" id="active" name="active" required>
+            <label for="active">Ativo?</label>
+          </div>
+      </div>
+    </div>
+
+    <div modal-footer>
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+      <button type="submit" class="btn btn-primary">Incluir</button>
+    </div>
+  </app-modal>
+</form>
