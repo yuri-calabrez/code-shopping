@@ -16,7 +16,7 @@ class ProductCategoryResource extends JsonResource
     {
         return [
             'product' => new ProductResource($this->resource),
-            'category' => CategoryResource::collection($this->resource->categories)
+            'categories' => CategoryResource::collection($this->resource->categories)
         ];
     }
 }

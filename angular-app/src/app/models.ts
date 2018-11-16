@@ -17,3 +17,8 @@ export interface Product {
     readonly created_at?: {date: string};
     readonly updated_at?: {date: string}
 }
+
+export interface ProductCategory {
+    product: Product
+    categories: Category[]
+}

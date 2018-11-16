@@ -22,7 +22,7 @@ class ProductController extends Controller
     {
         $query = Product::query();
         $query = $this->onlyTrashedIfRequested($request, $query);
-        return ProductResource::collection($query->paginate(10));
+        return ProductResource::collection($query->orderBy('id', 'desc')->paginate(10));
     }
 
     /**
