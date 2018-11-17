@@ -47,7 +47,7 @@ export class CategoryListComponent implements OnInit {
   }
 
   getCategories() {
-    this.categoryHttpService.list(this.pagination.page)
+    this.categoryHttpService.list({page: this.pagination.page})
       .subscribe(res => {
         this.categories = res.data
         this.pagination.totalItems = res.meta.total
