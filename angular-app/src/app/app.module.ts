@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms'
 import { HttpClientModule } from '@angular/common/http';
 
 import { NgxPaginationModule } from 'ngx-pagination'
+import { JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt'
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/pages/login/login.component';
@@ -22,6 +23,7 @@ import { ProductDeleteModalComponent } from './components/pages/product/product-
 import { NumberFormatBrPipe } from './pipes/number-format-br.pipe';
 import { ProductCategoryListComponent } from './components/pages/product-category/product-category-list/product-category-list.component';
 import { ProductCategoryNewComponent } from './components/pages/product-category/product-category-new/product-category-new.component'
+import { AuthService } from './services/auth.service';
 
 const routes: Routes = [
   {
@@ -40,6 +42,17 @@ const routes: Routes = [
     path: '', redirectTo: '/login', pathMatch: 'full'
   }
 ]
+
+function jwtFactory(authService: AuthService) {
+  return {
+    whitelistedDomains: [
+      new RegExp('localhost:8000/*')
+    ],
+    tokenGetter: () => {
+      return authService.getToken()
+    }
+  }
+}
 
 @NgModule({
   declarations: [
@@ -64,7 +77,14 @@ const routes: Routes = [
     FormsModule,
     HttpClientModule,
     RouterModule.forRoot(routes),
-    NgxPaginationModule
+    NgxPaginationModule,
+    JwtModule.forRoot({
+      jwtOptionsProvider: {
+        provide: JWT_OPTIONS,
+        useFactory: jwtFactory,
+        deps: [AuthService]
+      }
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
