@@ -24,6 +24,7 @@ import { NumberFormatBrPipe } from './pipes/number-format-br.pipe';
 import { ProductCategoryListComponent } from './components/pages/product-category/product-category-list/product-category-list.component';
 import { ProductCategoryNewComponent } from './components/pages/product-category/product-category-new/product-category-new.component'
 import { AuthService } from './services/auth.service';
+import { NavbarComponent } from './components/bootstrap/navbar/navbar.component';
 
 const routes: Routes = [
   {
@@ -70,7 +71,8 @@ function jwtFactory(authService: AuthService) {
     ProductDeleteModalComponent,
     NumberFormatBrPipe,
     ProductCategoryListComponent,
-    ProductCategoryNewComponent
+    ProductCategoryNewComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
