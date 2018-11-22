@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { RouterModule, Routes } from '@angular/router'
 import { FormsModule } from '@angular/forms'
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { NgxPaginationModule } from 'ngx-pagination'
 import { JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt'
@@ -25,19 +25,27 @@ import { ProductCategoryListComponent } from './components/pages/product-categor
 import { ProductCategoryNewComponent } from './components/pages/product-category/product-category-new/product-category-new.component'
 import { AuthService } from './services/auth.service';
 import { NavbarComponent } from './components/bootstrap/navbar/navbar.component';
+import { AuthGuard } from './guards/auth.guard';
+import { RefreshTokenInterceptorService } from './services/refresh-token-interceptor.service';
 
 const routes: Routes = [
   {
     path: 'login', component: LoginComponent
   },
   {
-    path: 'categories/list', component: CategoryListComponent
+    path: 'categories/list', 
+    component: CategoryListComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path: 'products/:product/categories/list', component: ProductCategoryListComponent
+    path: 'products/:product/categories/list', 
+    component: ProductCategoryListComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path: 'products/list', component: ProductListComponent
+    path: 'products/list',
+    component: ProductListComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: '', redirectTo: '/login', pathMatch: 'full'
@@ -88,7 +96,13 @@ function jwtFactory(authService: AuthService) {
       }
     })
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: RefreshTokenInterceptorService,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
