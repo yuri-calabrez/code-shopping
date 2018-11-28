@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { RouterModule, Routes } from '@angular/router'
 import { FormsModule } from '@angular/forms'
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
@@ -25,32 +24,8 @@ import { ProductCategoryListComponent } from './components/pages/product-categor
 import { ProductCategoryNewComponent } from './components/pages/product-category/product-category-new/product-category-new.component'
 import { AuthService } from './services/auth.service';
 import { NavbarComponent } from './components/bootstrap/navbar/navbar.component';
-import { AuthGuard } from './guards/auth.guard';
 import { RefreshTokenInterceptorService } from './services/refresh-token-interceptor.service';
-
-const routes: Routes = [
-  {
-    path: 'login', component: LoginComponent
-  },
-  {
-    path: 'categories/list', 
-    component: CategoryListComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'products/:product/categories/list', 
-    component: ProductCategoryListComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'products/list',
-    component: ProductListComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: '', redirectTo: '/login', pathMatch: 'full'
-  }
-]
+import { AppRoutingModule } from './app-routing.module';
 
 function jwtFactory(authService: AuthService) {
   return {
@@ -86,7 +61,7 @@ function jwtFactory(authService: AuthService) {
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    RouterModule.forRoot(routes),
+    AppRoutingModule,
     NgxPaginationModule,
     JwtModule.forRoot({
       jwtOptionsProvider: {

@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/internal/Observable'
 import { ProductCategory } from 'src/app/models';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators'
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -38,7 +39,7 @@ export class ProductCategoryHttpService {
   }
 
   getBaseUrl(productId: number, categoryId: number = null): string {
-    let baseUrl = `http://localhost:8000/api/products/${productId}/categories`
+    let baseUrl = `${environment.api.url}/products/${productId}/categories`
     if (categoryId) {
       baseUrl += `/${categoryId}`
     }
