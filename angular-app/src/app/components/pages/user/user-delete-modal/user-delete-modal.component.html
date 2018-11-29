@@ -1,0 +1,16 @@
+<form (submit)="destroy()">
+  <app-modal (onHide)="hideModal($event)">
+    <h5 modal-title>Exclusão de usuário</h5>
+
+    <div modal-body>
+      <div class="modal-body">
+         Deseja excluir o usuário {{ user?.name }}?
+      </div>
+    </div>
+
+    <div modal-footer>
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+      <button type="submit" class="btn btn-danger" (click)="destroy()">Excluir</button>
+    </div>
+  </app-modal>
+</form>

@@ -1,0 +1,56 @@
+<div class="row">
+  <h1>Listagem de usuários</h1>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <td colspan="5">
+          <button class="btn btn-primary" (click)="userInsertService.showModalInsert()">Novo usuário</button>
+        </td>
+      </tr>
+      <tr>
+        <th style="width: 5%;">ID</th>
+        <th style="width: 55%;">Nome</th>
+        <th style="width: 10%;">E-mail</th>
+        <th style="width: 10%;">Criado em</th>
+        <th style="width: 10%;">Editar</th>
+        <th style="width: 10%;">Excluir</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users | paginate: {itemsPerPage: pagination.itemsPerPage, currentPage: pagination.page, totalItems: pagination.totalItems}"> 
+        <td>{{ user.id }}</td>
+        <td>{{ user.name }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.created_at.date | date: 'dd/MM/yyyy' }}</td>
+        <td>
+          <a href="javascript:void(0);" (click)="userEditService.showModalEdit(user.id)" class="btn btn-primary btn-sm">
+            <i class="fas fa-edit"></i>
+          </a>
+        </td>
+        <td>
+          <a href="javascript:void(0);" (click)="userDeleteService.showModalDelete(user.id)" class="btn btn-danger btn-sm">
+            <i class="fas fa-trash"></i>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <pagination-controls 
+    (pageChange)="pageChanged($event)" 
+    previousLabel="Anterior"
+    nextLabel="Próximo"></pagination-controls>
+</div>
+
+<app-user-new-modal 
+  (onSuccess)="userInsertService.onInsertSuccess($event)"
+  (onError)="userInsertService.onInsertError($event)"></app-user-new-modal>
+
+  <app-user-edit-modal 
+    [userId]="userId"
+    (onSuccess)="userEditService.onEditSuccess($event)"
+    (onError)="userEditService.onEditError($event)"></app-user-edit-modal>
+
+<app-user-delete-modal
+  [userId]="userId"
+  (onSuccess)="userDeleteService.onDeleteSuccess($event)"
+  (onError)="userDeleteService.onDeleteError($event)"></app-user-delete-modal>
