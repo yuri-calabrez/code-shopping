@@ -30,6 +30,7 @@ import { UserListComponent } from './components/pages/user/user-list/user-list.c
 import { UserNewModalComponent } from './components/pages/user/user-new-modal/user-new-modal.component';
 import { UserEditModalComponent } from './components/pages/user/user-edit-modal/user-edit-modal.component';
 import { UserDeleteModalComponent } from './components/pages/user/user-delete-modal/user-delete-modal.component';
+import { SortColumnComponent } from './components/common/sort-column/sort-column.component';
 
 function jwtFactory(authService: AuthService) {
   return {
@@ -63,7 +64,8 @@ function jwtFactory(authService: AuthService) {
     UserListComponent,
     UserNewModalComponent,
     UserEditModalComponent,
-    UserDeleteModalComponent
+    UserDeleteModalComponent,
+    SortColumnComponent
   ],
   imports: [
     BrowserModule,
