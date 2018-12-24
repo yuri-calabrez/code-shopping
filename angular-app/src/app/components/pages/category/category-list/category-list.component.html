@@ -1,11 +1,13 @@
 <div class="row">
   <h1>Listagem de categorias</h1>
-  {{ sortColumn | json }}
   <table class="table table-striped">
     <thead>
       <tr>
-        <td colspan="5">
+        <td>
           <button class="btn btn-primary" (click)="categoryInsertService.showModalInsert()">Nova categoria</button>
+        </td>
+        <td colspan="4">
+          <category-search-form (onSearch)="search($event)"></category-search-form>
         </td>
       </tr>
       <tr>

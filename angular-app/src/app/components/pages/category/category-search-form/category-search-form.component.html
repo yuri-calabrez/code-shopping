@@ -1,0 +1,14 @@
+<form class="form-inline" (submit)="submit()">
+  <div class="col-auto">
+    <input type="search" 
+      [(ngModel)]="search"
+      class="form-control" 
+      name="search" 
+      id="search" 
+      placeholder="Digite a sua busca">
+  </div>
+
+  <button class="btn btn-primary" type="submit">
+    <i class="fas fa-search"></i>
+  </button>
+</form>
