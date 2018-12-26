@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { FormsModule } from '@angular/forms'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { NgxPaginationModule } from 'ngx-pagination'
@@ -32,6 +32,7 @@ import { UserEditModalComponent } from './components/pages/user/user-edit-modal/
 import { UserDeleteModalComponent } from './components/pages/user/user-delete-modal/user-delete-modal.component';
 import { SortColumnComponent } from './components/common/sort-column/sort-column.component';
 import { CategorySearchFormComponent } from './components/pages/category/category-search-form/category-search-form.component';
+import { CategoryFormComponent } from './components/pages/category/category-form/category-form.component';
 
 function jwtFactory(authService: AuthService) {
   return {
@@ -67,11 +68,13 @@ function jwtFactory(authService: AuthService) {
     UserEditModalComponent,
     UserDeleteModalComponent,
     SortColumnComponent,
-    CategorySearchFormComponent
+    CategorySearchFormComponent,
+    CategoryFormComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule,
     NgxPaginationModule,

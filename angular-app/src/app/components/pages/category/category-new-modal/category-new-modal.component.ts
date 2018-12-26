@@ -3,6 +3,7 @@ import { ModalComponent } from 'src/app/components/bootstrap/modal/modal.compone
 import { HttpErrorResponse } from '@angular/common/http';
 import { Category } from 'src/app/models';
 import { CategoryHttpService } from 'src/app/services/http/category-http.service';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-category-new-modal',
@@ -21,7 +22,14 @@ export class CategoryNewModalComponent implements OnInit {
   @Output() onSuccess:EventEmitter<any> = new EventEmitter<any>()
   @Output() onError:EventEmitter<HttpErrorResponse> = new EventEmitter<HttpErrorResponse>()
 
-  constructor(private categoryHttp: CategoryHttpService) { }
+  form: FormGroup
+
+  constructor(private categoryHttp: CategoryHttpService, private formBuilder: FormBuilder) {
+    this.form = this.formBuilder.group({
+      name: '',
+      active: true
+    })
+   }
 
   ngOnInit() {
   }
