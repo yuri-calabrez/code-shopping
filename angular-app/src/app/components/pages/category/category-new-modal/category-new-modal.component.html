@@ -3,9 +3,6 @@
     <h5 modal-title>Nova categoria</h5>
 
     <div modal-body>
-        Form: {{ form.valid }}<br>
-        Name: {{ form.get('name').status }} |  {{ form.get('name').value }}<br>
-        Active: {{ form.get('active').status }} |  {{ form.get('active').value }}<br>
       <div class="modal-body">
           <category-form [form]="form"></category-form>
       </div>
@@ -13,7 +10,7 @@
 
     <div modal-footer>
       <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-      <button type="submit" class="btn btn-primary">Incluir</button>
+      <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Incluir</button>
     </div>
   </app-modal>
 </form>

@@ -12,17 +12,12 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 })
 export class CategoryNewModalComponent implements OnInit {
 
-  category: Category = {
-    name: '',
-    active: true
-  }
-
+  form: FormGroup
+  
   @ViewChild(ModalComponent)  modal: ModalComponent
 
   @Output() onSuccess:EventEmitter<any> = new EventEmitter<any>()
   @Output() onError:EventEmitter<HttpErrorResponse> = new EventEmitter<HttpErrorResponse>()
-
-  form: FormGroup
 
   constructor(private categoryHttp: CategoryHttpService, private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
@@ -36,8 +31,12 @@ export class CategoryNewModalComponent implements OnInit {
 
   submit() {
    this.categoryHttp
-    .create(this.category)
+    .create(this.form.value)
     .subscribe(category => {
+      this.form.reset({
+        name: '',
+        active: true
+      })
       this.onSuccess.emit(category)
       this.modal.hide()
     }, error => this.onError.emit(error))
