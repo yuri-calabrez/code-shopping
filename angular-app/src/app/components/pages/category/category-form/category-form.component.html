@@ -1,6 +1,14 @@
 <div class="form-group" [formGroup]="form">
   <label for="name">Nome</label>
-  <input type="text" class="form-control" id="name" name="name" required formControlName="name">
+  <input 
+    type="text" 
+    class="form-control" 
+    isInvalid
+    id="name" 
+    maxlength="255" 
+    required 
+    formControlName="name">
+  <field-error [field]="form.get('name')"></field-error>
 </div>
 <div class="form-group form-check" [formGroup]="form">
   <input type="checkbox" class="form-check-input" id="active" name="active" formControlName="active">
