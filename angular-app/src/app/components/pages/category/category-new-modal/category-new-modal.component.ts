@@ -14,6 +14,7 @@ import fieldsOptions from '../category-form/category-fields-options'
 export class CategoryNewModalComponent implements OnInit {
 
   form: FormGroup
+  errors = {}
   
   @ViewChild(ModalComponent)  modal: ModalComponent
 
@@ -40,11 +41,20 @@ export class CategoryNewModalComponent implements OnInit {
       })
       this.onSuccess.emit(category)
       this.modal.hide()
-    }, error => this.onError.emit(error))
+    }, responseError => {
+      if (responseError.status === 422) {
+        this.errors = responseError.error.errors
+      }
+      this.onError.emit(responseError)
+    })
   }
 
   showModal() {
     this.modal.show()
+  }
+
+  showErrors(): boolean {
+    return Object.keys(this.errors).length != 0
   }
 
   hideModal($event: Event) {
