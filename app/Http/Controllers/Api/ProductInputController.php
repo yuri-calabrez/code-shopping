@@ -9,6 +9,7 @@ use CodeShopping\Models\ProductInput;
 use CodeShopping\Http\Resources\ProductResource;
 use CodeShopping\Http\Requests\ProductInputRequest;
 use CodeShopping\Http\Resources\ProductInputResource;
+use CodeShopping\Http\Filters\ProductInputFilter;
 
 class ProductInputController extends Controller
 {
@@ -17,9 +18,11 @@ class ProductInputController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $inputs = ProductInput::with('product')->paginate();
+        $filter = app(ProductInputFilter::class);
+        $filterQuery = ProductInput::filtered($filter);
+        $inputs = $request->has('all') ? $filterQuery->with('product')->get() : $filterQuery->with('product')->paginate();
         return ProductInputResource::collection($inputs);
     }
 

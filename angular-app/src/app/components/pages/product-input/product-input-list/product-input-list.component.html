@@ -1,0 +1,33 @@
+<div class="row">
+  <h1>Listagem de entrada de estoque</h1>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <td>
+          <button class="btn btn-primary">Nova entrada</button>
+        </td>
+        <td colspan="4">
+         
+        </td>
+      </tr>
+      <tr>
+        <th style="width: 10%;" [sortColumn]="sortColumn" columnName="id" (onSort)="sort($event)">ID</th>
+        <th style="width: 65%;">Produto</th>
+        <th style="width: 10%;" [sortColumn]="sortColumn" columnName="amount" (onSort)="sort($event)">Quant.</th>
+        <th style="width: 15%;" [sortColumn]="sortColumn" columnName="created_at" (onSort)="sort($event)">Criado em</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let input of inputs | paginate: {itemsPerPage: pagination.itemsPerPage, currentPage: pagination.page, totalItems: pagination.totalItems}"> 
+        <td>{{ input.id }}</td>
+        <td>{{ input.product.name }}</td>
+        <td>{{ input.amount }}</td>
+        <td>{{ input.created_at.date | date: 'dd/MM/yyyy' }}</td>
+        </tr>
+    </tbody>
+  </table>
+  <pagination-controls 
+    (pageChange)="pageChanged($event)" 
+    previousLabel="Anterior"
+    nextLabel="Próximo"></pagination-controls>
+</div>
