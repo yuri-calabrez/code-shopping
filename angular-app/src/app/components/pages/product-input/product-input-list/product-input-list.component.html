@@ -4,7 +4,7 @@
     <thead>
       <tr>
         <td>
-          <button class="btn btn-primary">Nova entrada</button>
+          <button class="btn btn-primary" (click)="productInputInsertService.showModalInsert()">Nova entrada</button>
         </td>
         <td colspan="4">
          
@@ -31,3 +31,7 @@
     previousLabel="Anterior"
     nextLabel="Próximo"></pagination-controls>
 </div>
+
+<product-input-new-modal
+  (onSuccess)="productInputInsertService.onInsertSuccess($event)"
+  (onError)="productInputInsertService.onInsertError($event)"></product-input-new-modal>

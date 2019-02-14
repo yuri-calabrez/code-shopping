@@ -28,4 +28,20 @@ export class ProductInputHttpService {
       }
     })
   }
+
+  get(id: number): Observable<ProductInput> {
+    return this.http
+      .get<{data: ProductInput}>(`${this.baseUrl}/${id}`)
+      .pipe(
+        map(response => response.data)
+      )
+  }
+
+  create(data: {product_id: number, amount: number}): Observable<ProductInput> {
+    return this.http
+      .post<{data: ProductInput}>(this.baseUrl, data)
+      .pipe(
+        map(response => response.data)
+      )
+  }
 }

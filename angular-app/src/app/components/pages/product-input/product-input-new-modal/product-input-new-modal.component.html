@@ -1,0 +1,13 @@
+<form (submit)="submit()">
+    <app-modal (onHide)="hideModal($event)">
+        <h5 modal-title>Nova Entrada de Estoque</h5>
+
+        <div modal-body>
+            <product-input-form [form]="form"></product-input-form>
+        </div>
+        <div modal-footer>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+            <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Incluir</button>
+        </div>
+    </app-modal>
+</form>

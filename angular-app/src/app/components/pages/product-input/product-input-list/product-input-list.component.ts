@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ProductInputHttpService } from 'src/app/services/http/product-input-http.service';
 import { ProductInput } from 'src/app/models';
+import { ProductInputNewModalComponent } from '../product-input-new-modal/product-input-new-modal.component';
+import { ProductInputInsertService } from './product-input-insert.service';
 
 @Component({
   selector: 'app-product-input-list',
@@ -19,7 +21,15 @@ export class ProductInputListComponent implements OnInit {
   sortColumn = {column: '', sort: ''}
   searchText: string
 
-  constructor(private productInputHttpService: ProductInputHttpService) { }
+  @ViewChild(ProductInputNewModalComponent)
+  productInputNewModal: ProductInputNewModalComponent
+
+  constructor(
+    private productInputHttpService: ProductInputHttpService,
+    protected productInputInsertService: ProductInputInsertService
+    ) { 
+      this.productInputInsertService.productInputListComponent = this
+    }
 
   ngOnInit() {
     this.getInputs()

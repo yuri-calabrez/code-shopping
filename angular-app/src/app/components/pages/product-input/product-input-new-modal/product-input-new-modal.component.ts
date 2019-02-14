@@ -1,29 +1,29 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ModalComponent } from 'src/app/components/bootstrap/modal/modal.component';
 import { HttpErrorResponse } from '@angular/common/http';
-import { CategoryHttpService } from 'src/app/services/http/category-http.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import fieldsOptions from '../category-form/category-fields-options'
+import { ProductInputHttpService } from 'src/app/services/http/product-input-http.service';
+import productInputFieldsOptions from '../product-input-form/product-input-fields-options';
 
 @Component({
-  selector: 'app-category-new-modal',
-  templateUrl: './category-new-modal.component.html',
-  styleUrls: ['./category-new-modal.component.css']
+  selector: 'product-input-new-modal',
+  templateUrl: './product-input-new-modal.component.html',
+  styleUrls: ['./product-input-new-modal.component.css']
 })
-export class CategoryNewModalComponent implements OnInit {
+export class ProductInputNewModalComponent implements OnInit {
 
   form: FormGroup
   errors = {}
   
-  @ViewChild(ModalComponent)  modal: ModalComponent
+  @ViewChild(ModalComponent) modal: ModalComponent
 
   @Output() onSuccess:EventEmitter<any> = new EventEmitter<any>()
   @Output() onError:EventEmitter<HttpErrorResponse> = new EventEmitter<HttpErrorResponse>()
 
-  constructor(private categoryHttp: CategoryHttpService, private formBuilder: FormBuilder) {
+  constructor(private productInputHttp: ProductInputHttpService, private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
-      name: ['', [Validators.required, Validators.maxLength(fieldsOptions.name.validationMessage.maxlength)]],
-      active: true
+      product_id: [null, [Validators.required]],
+      amount: ['', [Validators.required, Validators.min(productInputFieldsOptions.amount.validationMessage.min)]],
     })
    }
 
@@ -31,14 +31,14 @@ export class CategoryNewModalComponent implements OnInit {
   }
 
   submit() {
-   this.categoryHttp
+   this.productInputHttp
     .create(this.form.value)
-    .subscribe(category => {
+    .subscribe(productInput => {
       this.form.reset({
-        name: '',
-        active: true
+        product_id: '',
+        amount: ''
       })
-      this.onSuccess.emit(category)
+      this.onSuccess.emit(productInput)
       this.modal.hide()
     }, responseError => {
       if (responseError.status === 422) {
@@ -49,6 +49,7 @@ export class CategoryNewModalComponent implements OnInit {
   }
 
   showModal() {
+    console.log(this.modal)
     this.modal.show()
   }
 
