@@ -44,6 +44,11 @@ export class ProductInputListComponent implements OnInit {
     this.getInputs()
   }
 
+  search(search) {
+    this.searchText = search
+    this.getInputs()
+  }
+
   getInputs() {
     this.productInputHttpService.list({
       page: this.pagination.page,

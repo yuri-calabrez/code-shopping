@@ -7,13 +7,13 @@
           <button class="btn btn-primary" (click)="productInputInsertService.showModalInsert()">Nova entrada</button>
         </td>
         <td colspan="4">
-         
+          <product-input-search-form (onSearch)="search($event)"></product-input-search-form>
         </td>
       </tr>
       <tr>
         <th style="width: 10%;" [sortColumn]="sortColumn" columnName="id" (onSort)="sort($event)">ID</th>
-        <th style="width: 65%;">Produto</th>
-        <th style="width: 10%;" [sortColumn]="sortColumn" columnName="amount" (onSort)="sort($event)">Quant.</th>
+        <th style="width: 65%;" [sortColumn]="sortColumn" columnName="product_name" (onSort)="sort($event)">Produto</th>
+        <th style="width: 10%;">Quant.</th>
         <th style="width: 15%;" [sortColumn]="sortColumn" columnName="created_at" (onSort)="sort($event)">Criado em</th>
       </tr>
     </thead>

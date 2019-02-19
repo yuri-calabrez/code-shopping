@@ -21,8 +21,8 @@ class ProductInputController extends Controller
     public function index(Request $request)
     {
         $filter = app(ProductInputFilter::class);
-        $filterQuery = ProductInput::filtered($filter);
-        $inputs = $request->has('all') ? $filterQuery->with('product')->get() : $filterQuery->with('product')->paginate();
+        $filterQuery = ProductInput::with('product')->filtered($filter);
+        $inputs = $filterQuery->paginate();
         return ProductInputResource::collection($inputs);
     }
 

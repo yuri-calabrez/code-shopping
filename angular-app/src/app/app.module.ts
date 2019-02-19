@@ -41,6 +41,7 @@ import { ProductFormComponent } from './components/pages/product/product-form/pr
 import { ProductInputListComponent } from './components/pages/product-input/product-input-list/product-input-list.component';
 import { ProductInputNewModalComponent } from './components/pages/product-input/product-input-new-modal/product-input-new-modal.component';
 import { ProductInputFormComponent } from './components/pages/product-input/product-input-form/product-input-form.component';
+import { ProductInputSearchFormComponent } from './components/pages/product-input/product-input-search-form/product-input-search-form.component';
 
 function jwtFactory(authService: AuthService) {
   return {
@@ -85,7 +86,8 @@ function jwtFactory(authService: AuthService) {
     ProductFormComponent,
     ProductInputListComponent,
     ProductInputNewModalComponent,
-    ProductInputFormComponent
+    ProductInputFormComponent,
+    ProductInputSearchFormComponent
   ],
   imports: [
     BrowserModule,
