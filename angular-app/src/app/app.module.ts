@@ -6,6 +6,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { NgxPaginationModule } from 'ngx-pagination'
 import { JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt'
+import {Select2Module} from 'ng2-select2'
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/pages/login/login.component';
@@ -96,6 +97,7 @@ function jwtFactory(authService: AuthService) {
     HttpClientModule,
     AppRoutingModule,
     NgxPaginationModule,
+    Select2Module,
     JwtModule.forRoot({
       jwtOptionsProvider: {
         provide: JWT_OPTIONS,
