@@ -35,7 +35,7 @@ export class ProductInputNewModalComponent implements OnInit {
     .create(this.form.value)
     .subscribe(productInput => {
       this.form.reset({
-        product_id: '',
+        product_id: null,
         amount: ''
       })
       this.onSuccess.emit(productInput)
@@ -49,7 +49,6 @@ export class ProductInputNewModalComponent implements OnInit {
   }
 
   showModal() {
-    console.log(this.modal)
     this.modal.show()
   }
 

@@ -20,7 +20,7 @@ export class ProductInputFormComponent implements OnInit {
   constructor(private changeRef: ChangeDetectorRef, public productIdField: ProductIdFieldService) { }
 
   ngOnInit() {
-    this.productIdField.make(this.select2Element)
+    this.productIdField.make(this.select2Element, this.form.get('product_id'))
   }
 
   ngOnChanges() {
