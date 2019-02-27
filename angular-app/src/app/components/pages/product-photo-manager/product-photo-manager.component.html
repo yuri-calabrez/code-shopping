@@ -1,0 +1,10 @@
+<div class="row">
+  <h1>Fotos de {{ product?.name }}</h1>
+  <div class="col-md-12">
+    <product-photo-upload></product-photo-upload>
+  </div>
+
+  <div class="col-md-12">
+    <img [src]="photo.photo_url" [alt]="product?.name" *ngFor="let photo of photos" class="img-responsive">
+  </div>
+</div>

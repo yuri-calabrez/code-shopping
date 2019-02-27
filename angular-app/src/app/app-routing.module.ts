@@ -7,6 +7,7 @@ import { ProductCategoryListComponent } from './components/pages/product-categor
 import { ProductListComponent } from './components/pages/product/product-list/product-list.component';
 import { UserListComponent } from './components/pages/user/user-list/user-list.component';
 import { ProductInputListComponent } from './components/pages/product-input/product-input-list/product-input-list.component';
+import { ProductPhotoManagerComponent } from './components/pages/product-photo-manager/product-photo-manager.component';
 
 const routes: Routes = [
   {
@@ -20,6 +21,11 @@ const routes: Routes = [
   {
     path: 'products/:product/categories/list', 
     component: ProductCategoryListComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'products/:product/photos/manager', 
+    component: ProductPhotoManagerComponent,
     canActivate: [AuthGuard]
   },
   {

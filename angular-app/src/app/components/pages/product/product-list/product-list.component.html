@@ -9,11 +9,12 @@
       </tr>
       <tr>
         <th style="width: 5%;">ID</th>
-        <th style="width: 45%;">Nome</th>
+        <th style="width: 35%;">Nome</th>
         <th style="width: 10%;">Preço</th>
         <th style="width: 10%;">Status</th>
         <th style="width: 10%;">Criado em</th>
         <th style="width: 10%;">Categorias</th>
+        <th style="width: 10%;">Fotos</th>
         <th style="width: 5%;">Editar</th>
         <th style="width: 5%;">Excluir</th>
       </tr>
@@ -27,6 +28,9 @@
         <td>{{ product.created_at.date | date: 'dd/MM/yyyy' }}</td>
         <td>
           <a [routerLink]="['/products', product.id, 'categories', 'list']">Categorias</a>
+        </td>
+        <td>
+          <a [routerLink]="['/products', product.id, 'photos', 'manager']">Fotos</a>
         </td>
         <td>
           <a href="javascript:void(0);" (click)="productEditService.showModalEdit(product.id)" class="btn btn-primary btn-sm">

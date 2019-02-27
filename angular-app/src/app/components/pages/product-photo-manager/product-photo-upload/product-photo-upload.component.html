@@ -1,0 +1,8 @@
+<card-error *ngIf="showErrors()">
+  <list-error [errors]="errors"></list-error>
+</card-error>
+
+<div class="form-group">
+  <label for="photo">Subir Foto</label>
+  <input type="file" id="photo" multiple class="form-control" (change)="uploadPhotos($event.target.files)">
+</div>

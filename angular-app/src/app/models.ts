@@ -26,6 +26,14 @@ export interface ProductInput {
     product: Product
 }
 
+export interface ProductPhoto {
+    id?: number
+    photo_url: string
+    product?: Product
+    readonly created_at?: {date: string}
+    readonly updated_at?: {date: string}
+}
+
 export interface ProductCategory {
     product: Product
     categories: Category[]
