@@ -1,0 +1,12 @@
+<app-modal>
+  <h5 modal-title>Substituir foto atual?</h5>
+  <div modal-body>
+    <card-error *ngIf="showErrors()">
+      <list-error [errors]="errors"></list-error>
+    </card-error>
+    <div class="form-group">
+      <label for="photo">Substituir foto</label>
+      <input type="file" id="photo" class="form-control" (change)="editPhoto($event.taget.files)">
+    </div>
+  </div>
+</app-modal>

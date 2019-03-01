@@ -29,13 +29,15 @@
               "node_modules/@fortawesome/fontawesome-free-webfonts/css/fontawesome.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/select2/dist/css/select2.min.css",
-              "node_modules/select2-bootstrap4-theme/dist/select2-bootstrap4.min.css"
+              "node_modules/select2-bootstrap4-theme/dist/select2-bootstrap4.min.css",
+              "node_modules/@fancyapps/fancybox/dist/jquery.fancybox.min.css"
             ],
             "scripts": [
               "node_modules/popper.js/dist/umd/popper.min.js",
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.min.js",
-              "node_modules/select2/dist/js/select2.min.js"
+              "node_modules/select2/dist/js/select2.min.js",
+              "node_modules/@fancyapps/fancybox/dist/jquery.fancybox.min.js"
             ]
           },
           "configurations": {

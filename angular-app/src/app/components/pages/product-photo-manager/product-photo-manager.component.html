@@ -1,10 +1,14 @@
 <div class="row">
   <h1>Fotos de {{ product?.name }}</h1>
   <div class="col-md-12">
-    <product-photo-upload></product-photo-upload>
+    <product-photo-upload (onSuccess)="onInsertSucccess($event)"></product-photo-upload>
   </div>
 
-  <div class="col-md-12">
-    <img [src]="photo.photo_url" [alt]="product?.name" *ngFor="let photo of photos" class="img-responsive">
+  <div class="col-md-4" *ngFor="let photo of photos">
+    <a data-fancybox="gallery" [href]="photo.photo_url">
+        <img [src]="photo.photo_url" [alt]="product?.name" class="img-fluid">
+    </a>
   </div>
 </div>
+
+<product-photo-edit-modal></product-photo-edit-modal>
