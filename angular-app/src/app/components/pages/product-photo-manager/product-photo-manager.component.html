@@ -6,9 +6,9 @@
 
   <div class="col-md-4" *ngFor="let photo of photos">
     <a data-fancybox="gallery" [href]="photo.photo_url">
-        <img [src]="photo.photo_url" [alt]="product?.name" class="img-fluid">
+        <img [id]="'photo-'+photo.id" [src]="photo.photo_url" [alt]="product?.name" class="img-fluid">
     </a>
   </div>
 </div>
 
-<product-photo-edit-modal></product-photo-edit-modal>
+<product-photo-edit-modal (onSuccess)="onEditSuccess($event)" [photoId]="photoIdToEdit"></product-photo-edit-modal>

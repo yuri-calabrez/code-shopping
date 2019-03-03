@@ -17,6 +17,7 @@ export class ProductPhotoManagerComponent implements OnInit {
   photos: ProductPhoto[] = []
   product:Product = null
   productId: number
+  photoIdToEdit: number
 
   @ViewChild(ProductPhotoEditModalComponent)
   editModal: ProductPhotoEditModalComponent
@@ -48,6 +49,17 @@ export class ProductPhotoManagerComponent implements OnInit {
     this.notifyMessage.success('Foto(s) cadastrada(s) com sucesso!');
   }
 
+  onEditSuccess(data: ProductPhoto) {
+    $.fancybox.getInstance().close()
+    this.editModal.closeModal()
+    const index = this.photos.findIndex((photo: ProductPhoto) => {
+      return photo.id == this.photoIdToEdit
+    })
+
+    this.photos[index] = data
+    this.notifyMessage.success('Foto substituída com sucesso!');
+  }
+
   configFancybox() {
     $.fancybox.defaults.btnTpl.edit = `
     <a href="javascript:void(0)" class="fancybox-button" data-fancybox-edit title="Substituir" style="text-align: center;">
@@ -56,10 +68,16 @@ export class ProductPhotoManagerComponent implements OnInit {
 
     $.fancybox.defaults.buttons = ['download', 'edit']
     $('body').on('click', '[data-fancybox-edit]', (e) => {
+      const photoId = this.getPhotoIdFromSlideShow()
+      this.photoIdToEdit = photoId
       this.editModal.showModal()
     })
   }
 
-
+  getPhotoIdFromSlideShow() {
+    const src = $('.fancybox-slide--current .fancybox-image').attr('src')
+    const id = $('[data-fancybox="gallery"]').find(`[src="${src}"]`).attr('id')
+    return id.split('-')[1]
+  }
 
 }
