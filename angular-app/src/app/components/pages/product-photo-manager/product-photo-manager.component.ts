@@ -4,6 +4,7 @@ import { ProductPhotoHttpService } from 'src/app/services/http/product-photo-htt
 import { ActivatedRoute } from '@angular/router';
 import { NotifyMessageService } from 'src/app/services/notify-message.service';
 import { ProductPhotoEditModalComponent } from './product-photo-edit-modal/product-photo-edit-modal.component';
+import { ProductPhotoDeleteModalComponent } from './product-photo-delete-modal/product-photo-delete-modal.component';
 
 declare const $
 
@@ -18,9 +19,13 @@ export class ProductPhotoManagerComponent implements OnInit {
   product:Product = null
   productId: number
   photoIdToEdit: number
+  photoIdToRemove: number
 
   @ViewChild(ProductPhotoEditModalComponent)
   editModal: ProductPhotoEditModalComponent
+
+  @ViewChild(ProductPhotoDeleteModalComponent)
+  deleteModal: ProductPhotoDeleteModalComponent
 
   constructor(
     private poductPhotoHttp: ProductPhotoHttpService, 
@@ -60,17 +65,38 @@ export class ProductPhotoManagerComponent implements OnInit {
     this.notifyMessage.success('Foto substituída com sucesso!');
   }
 
+  onDeleteSuccess() {
+    $.fancybox.getInstance().close()
+    this.deleteModal.closeModal()
+    const index = this.photos.findIndex((photo: ProductPhoto) => {
+      return photo.id == this.photoIdToRemove
+    })
+    this.photos.splice(index, 1)
+    this.notifyMessage.success('Foto removida com sucesso!');
+  }
+
   configFancybox() {
     $.fancybox.defaults.btnTpl.edit = `
     <a href="javascript:void(0)" class="fancybox-button" data-fancybox-edit title="Substituir" style="text-align: center;">
       <i class="fas fa-edit"></i>
     </a>`
 
-    $.fancybox.defaults.buttons = ['download', 'edit']
+    $.fancybox.defaults.btnTpl.remove = `
+    <a href="javascript:void(0)" class="fancybox-button" data-fancybox-remove title="Remover foto" style="text-align: center;">
+      <i class="fas fa-trash"></i>
+    </a>`
+
+    $.fancybox.defaults.buttons = ['download', 'edit', 'remove']
     $('body').on('click', '[data-fancybox-edit]', (e) => {
       const photoId = this.getPhotoIdFromSlideShow()
       this.photoIdToEdit = photoId
       this.editModal.showModal()
+    })
+
+    $('body').on('click', '[data-fancybox-remove]', (e) => {
+      const photoId = this.getPhotoIdFromSlideShow()
+      this.photoIdToRemove = photoId
+      this.deleteModal.showModal()
     })
   }
 

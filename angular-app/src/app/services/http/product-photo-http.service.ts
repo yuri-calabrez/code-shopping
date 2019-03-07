@@ -43,6 +43,10 @@ export class ProductPhotoHttpService {
       )
   }
 
+  destroy(productId: number, photoId: number): Observable<any> {
+    return this.http.delete<any>(this.getBaseUrl(productId, photoId))
+  }
+
   getBaseUrl(productId: number, photoId: number = null): string {
     let baseUrl = `${environment.api.url}/products/${productId}/photos`
     if (photoId) {
