@@ -11,6 +11,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { LoginOptionsPage } from '../pages/login-options/login-options';
 import { LoginPhoneNumberPage } from '../pages/login-phone-number/login-phone-number';
 import { ResetPhoneNumberPage } from '../pages/reset-phone-number/reset-phone-number';
+import { FirebaseAuthProvider } from '../providers/auth/firebase-auth';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { ResetPhoneNumberPage } from '../pages/reset-phone-number/reset-phone-nu
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    FirebaseAuthProvider
   ]
 })
 export class AppModule {}

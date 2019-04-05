@@ -29,6 +29,7 @@
     "ionic-angular": "3.9.3",
     "ionicons": "3.0.0",
     "rxjs": "5.5.11",
+    "scriptjs": "^2.5.8",
     "sw-toolbox": "3.6.0",
     "zone.js": "0.8.29"
   },
