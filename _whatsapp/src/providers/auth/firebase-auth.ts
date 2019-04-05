@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase'
 import firebaseConfig from '../../app/fb-config'
@@ -15,12 +14,28 @@ declare const firebaseui
 @Injectable()
 export class FirebaseAuthProvider {
 
-  constructor(public http: HttpClient) {
-    console.log('Hello FirebaseAuthProvider Provider');
+  constructor() {
+    firebase.initializeApp(firebaseConfig)
   }
 
-  private getFirebaseUI(): Promise<any> {
+  async makePhoneNumberForm(selectorElement: string) {
+    const firebaseui = await this.getFirebaseUI()
+    const uiConfig = {
+      signInOptions: [
+        firebase.auth.PhoneAuthProvider.PROVIDER_ID
+      ]
+    }
+    const ui = new firebaseui.auth.AuthUI(firebase.auth())
+    ui.start(selectorElement, uiConfig)
+  }
+
+  private async getFirebaseUI(): Promise<any> {
     return new Promise((resolve, reject) => {
+      if (window.hasOwnProperty('firebaseui')) {
+        resolve(firebaseui)
+        return
+      }
+
       scriptjs('https://www.gstatic.com/firebasejs/ui/3.1.1/firebase-ui-auth__pt.js', () => {
         resolve(firebaseui)
       })
@@ -28,13 +43,3 @@ export class FirebaseAuthProvider {
   }
 
 }
-
-/*firebase.initializeApp(firebaseConfig)
-      const uiConfig = {
-        signInOptions: [
-          firebase.auth.PhoneAuthProvider.PROVIDER_ID
-        ]
-      }
-
-      const ui = new firebaseui.auth.AuthUI(firebase.auth())
-      ui.start('#firebase-ui', uiConfig)*/
