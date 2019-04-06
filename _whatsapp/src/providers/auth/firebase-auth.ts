@@ -23,7 +23,12 @@ export class FirebaseAuthProvider {
     const uiConfig = {
       signInOptions: [
         firebase.auth.PhoneAuthProvider.PROVIDER_ID
-      ]
+      ],
+      callbacks: {
+        signInSuccessWithAuthResult: (authResult, redirectUrl) => {
+          return false
+        }
+      }
     }
     const ui = new firebaseui.auth.AuthUI(firebase.auth())
     ui.start(selectorElement, uiConfig)
