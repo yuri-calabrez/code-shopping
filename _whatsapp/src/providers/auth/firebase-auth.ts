@@ -34,6 +34,34 @@ export class FirebaseAuthProvider {
     ui.start(selectorElement, uiConfig)
   }
 
+  get firebase() {
+    return firebase
+  }
+
+  getUser(): Promise<firebase.User | null> {
+    const currentUser = this.getCurrentUser()
+    if (currentUser) {
+      return Promise.resolve(currentUser)
+    }
+
+    return new Promise((resolve, reject) => {
+      const unsubscribed = this.firebase
+        .auth()
+        .onAuthStateChanged(
+          (user) => {
+            resolve(user)
+            unsubscribed()
+          }, error => {
+            reject(error)
+            unsubscribed()
+          })
+    })
+  }
+
+  private getCurrentUser(): firebase.User | null {
+    return this.firebase.auth().currentUser
+  }
+
   private async getFirebaseUI(): Promise<any> {
     return new Promise((resolve, reject) => {
       if (window.hasOwnProperty('firebaseui')) {
