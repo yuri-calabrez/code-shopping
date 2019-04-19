@@ -19,6 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::group(['namespace' => 'Api\\', 'as' => 'api.'], function(){
     Route::post('login', 'AuthController@login')->name('login');
+    Route::post('login_vendor', 'AuthController@loginFirebase')->name('login_vendor');
     Route::post('refresh', 'AuthController@refresh')->name('refresh');
 
     Route::group(['middleware' => ['auth:api', 'jwt.refresh']], function(){
