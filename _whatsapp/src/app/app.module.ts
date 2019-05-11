@@ -7,6 +7,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
+import { MainPage } from '../pages/main/main';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -16,6 +17,7 @@ import { ResetPhoneNumberPage } from '../pages/reset-phone-number/reset-phone-nu
 import { FirebaseAuthProvider } from '../providers/auth/firebase-auth';
 import { AuthProvider } from '../providers/auth/auth';
 
+
 @NgModule({
   declarations: [
     MyApp,
@@ -23,7 +25,8 @@ import { AuthProvider } from '../providers/auth/auth';
     ListPage,
     LoginOptionsPage,
     LoginPhoneNumberPage,
-    ResetPhoneNumberPage
+    ResetPhoneNumberPage,
+    MainPage
   ],
   imports: [
     BrowserModule,
@@ -37,7 +40,8 @@ import { AuthProvider } from '../providers/auth/auth';
     ListPage,
     LoginOptionsPage,
     LoginPhoneNumberPage,
-    ResetPhoneNumberPage
+    ResetPhoneNumberPage,
+    MainPage
   ],
   providers: [
     StatusBar,
