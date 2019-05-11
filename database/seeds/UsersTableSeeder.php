@@ -19,6 +19,6 @@ class UsersTableSeeder extends Seeder
             $user->profile->save();
         });
         
-        factory(User::class, 20)->create();
+        factory(User::class, 20)->create(['role' => User::ROLE_CUSTOMER]);
     }
 }

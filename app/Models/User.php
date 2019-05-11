@@ -12,6 +12,9 @@ class User extends Authenticatable implements JWTSubject
     use Notifiable;
     use SoftDeletes;
 
+    const ROLE_SELLER = 1;
+    const ROLE_CUSTOMER = 2;
+
     protected $dates = ['deleted_at'];
 
     /**
@@ -31,6 +34,26 @@ class User extends Authenticatable implements JWTSubject
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * Create new Customer
+     *
+     * @param array $data
+     * @return void
+     */
+    public static function createCustomer(array $data)
+    {
+        try {
+            UserProfile::uploadPhoto($data['photo']);
+
+            \DB::beginTransaction();
+            \DB::commit();
+        } catch (\Exception $e) {
+            //TODO: excluir foto
+            DB::rollback();
+            throw $e;
+        }
+    }
 
     public function setPasswordAttribute($value)
     {
