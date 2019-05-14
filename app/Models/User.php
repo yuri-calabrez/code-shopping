@@ -47,12 +47,30 @@ class User extends Authenticatable implements JWTSubject
             UserProfile::uploadPhoto($data['photo']);
 
             \DB::beginTransaction();
+            $user = self::createCustomerUser($data);
+            UserProfile::saveProfile($user, $data);
             \DB::commit();
         } catch (\Exception $e) {
-            //TODO: excluir foto
-            DB::rollback();
+            UserProfile::deleteFile($data['photo']);
+            \DB::rollback();
             throw $e;
         }
+
+        return $user;
+    }
+
+    /**
+     * Create customer user
+     *
+     * @param array $data
+     * @return User
+     */
+    private static function createCustomerUser(array $data): User
+    {
+        $data['password'] = bcrypt(str_random(16));
+        $user = self::create($data);
+        $user->role = self::ROLE_CUSTOMER;
+        return $user;
     }
 
     public function setPasswordAttribute($value)

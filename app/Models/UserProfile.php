@@ -16,6 +16,45 @@ class UserProfile extends Model
     protected $fillable = ['phone_number', 'photo'];
 
     /**
+     * Save customer profile
+     *
+     * @param User $user
+     * @param array $data
+     * @return UserProfile
+     */
+    public static function saveProfile(User $user, array $data): UserProfile
+    {
+        $data['photo'] = self::getPhotoHashName($data['photo']);
+        $user->profile->fill($data)->save();
+        return $user->profile;
+    }
+
+    public static function deleteFile(UploadedFile $photo = null)
+    {
+        if (!$photo) {
+            return;
+        }
+
+        $path = self::photoPath();
+        $photoPath = "{$path}/{$photo->hashName()}";
+
+        if (file_exists($photoPath)) {
+            \File::delete($photoPath);
+        }
+    }
+
+    /**
+     * Get photo hash name
+     *
+     * @param UploadedFile $photo
+     * @return void
+     */
+    private static function getPhotoHashName(UploadedFile $photo = null)
+    {
+        return $photo ? $photo->hashName() : null;
+    }
+
+    /**
      * Return photo Path
      *
      * @return string
