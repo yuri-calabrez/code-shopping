@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use CodeShopping\Rules\FirebaseTokenVerification;
 use CodeShopping\Rules\PhoneNumberUnique;
 
-class CustomerRequest extends FormRequest
+class UserProfileUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,14 +25,15 @@ class CustomerRequest extends FormRequest
      */
     public function rules()
     {
+        $userId = \Auth::guard('api')->user()->id;
         return [
-            'name' => 'required|max:255',
-            'email' => 'required|email|unique:users,email',
+            'name' => 'max:255',
+            'email' => "email|unique:users,email,{$userId}",
+            'password' => 'min:4|max:16',
             'photo' => 'image|max:'.(3 * 1024),
             'token' => [
-                'required',
                 new FirebaseTokenVerification(),
-                new PhoneNumberUnique()
+                new PhoneNumberUnique($userId)
             ]
         ];
     }
