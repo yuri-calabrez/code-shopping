@@ -114,4 +114,10 @@ class UserProfile extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function getPhotoUrlAttribute()
+    {
+        $path = self::photoDir();
+        return $this->photo ? asset("storage/{$path}/{$this->photo}") : 'https://www.gravatar.com/avatar/nouser.jpg';
+    }
 }
