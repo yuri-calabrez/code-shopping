@@ -50,7 +50,8 @@ export class AuthService {
     this.me = payload ? {
       id: payload.sub,
       name: payload.name,
-      email: payload.email
+      email: payload.email,
+      profile: payload.profile
     } : null
   }
 
