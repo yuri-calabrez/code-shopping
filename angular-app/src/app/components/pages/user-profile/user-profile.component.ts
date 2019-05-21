@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NotifyMessageService } from 'src/app/services/notify-message.service';
 import { UserProfileHttpService } from 'src/app/services/http/user-profile-http.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -12,11 +13,13 @@ export class UserProfileComponent implements OnInit {
 
   form: FormGroup
   errors = {}
+  has_photo: boolean
 
   constructor(
     private formBuilder: FormBuilder, 
     private notifyMessage: NotifyMessageService,
-    private userProfileHttp: UserProfileHttpService
+    private userProfileHttp: UserProfileHttpService,
+    private authService: AuthService
     ) { 
     this.form = this.formBuilder.group({
       name: ['', [Validators.maxLength(255)]],
@@ -25,15 +28,23 @@ export class UserProfileComponent implements OnInit {
       phone_number: null,
       photo: false
     })
+    this.form.patchValue(this.authService.me)
+    this.form.get('phone_number').setValue(this.authService.me.profile.phone_number)
+    this.setHasPhoto()
   }
 
   ngOnInit() {
   }
 
   submit() {
+    const data = Object.assign({}, this.form.value)
+    delete data.phone_number
+
     this.userProfileHttp
-      .update(this.form.value)
+      .update(data)
       .subscribe(data => {
+        this.form.get('photo').setValue(false)
+        this.setHasPhoto()
         this.notifyMessage.success('Perfil atualizado com sucesso!')
       }, responseError => {
         if (responseError.status === 422) {
@@ -43,12 +54,21 @@ export class UserProfileComponent implements OnInit {
       return false;
   }
 
+  setHasPhoto() {
+    this.has_photo = this.authService.me.profile.has_photo
+  }
+
   onChoosePhoto(files: FileList) {
     if (!files.length) {
       return
     }
 
     this.form.get('photo').setValue(files[0])
+  }
+
+  removePhoto() {
+    this.form.get('photo').setValue(null)
+    this.has_photo = false
   }
 
   showErrors(){

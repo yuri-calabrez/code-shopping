@@ -28,6 +28,10 @@
       <div class="form-group">
         <label for="photo">Foto de perfil</label>
         <input type="file" id="photo" class="form-control" (change)="onChoosePhoto($event.target.files)">
+        <div class="row col-md-12" style="margin-top: 5px;">
+          <button type="button" class="btn btn-danger" [hidden]="!has_photo" (click)="removePhoto()">Remover foto de perfil</button>
+          <div class="alert alert-info" [hidden]="has_photo || authService.me.profile.has_photo">Para remover a foto, salve o formulário</div>
+        </div>
       </div>
 
       <button class="btn btn-primary" type="submit" [disabled]="!form.valid">Salvar</button>

@@ -40,3 +40,4 @@ Thumbs.db
 
 src/environments/environment.prod.ts
 src/environments/environment.ts
+src/app/fb-config.ts
