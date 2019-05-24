@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NotifyMessageService } from 'src/app/services/notify-message.service';
 import { UserProfileHttpService } from 'src/app/services/http/user-profile-http.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { PhoneNumberAuthModalComponent } from '../../common/phone-number-auth-modal/phone-number-auth-modal.component';
+import { FirebaseAuthService } from 'src/app/services/firebase-auth.service';
+import fieldsOptions from './user-profile-fields-options';
 
 @Component({
   selector: 'app-user-profile',
@@ -15,17 +18,22 @@ export class UserProfileComponent implements OnInit {
   errors = {}
   has_photo: boolean
 
+  @ViewChild(PhoneNumberAuthModalComponent)
+  phoneNumberAuthModalComponent: PhoneNumberAuthModalComponent
+
   constructor(
     private formBuilder: FormBuilder, 
     private notifyMessage: NotifyMessageService,
     private userProfileHttp: UserProfileHttpService,
-    private authService: AuthService
+    private authService: AuthService,
+    private firebaseAuth: FirebaseAuthService
     ) { 
     this.form = this.formBuilder.group({
       name: ['', [Validators.maxLength(255)]],
       email: ['', [Validators.email, Validators.maxLength(255)]],
       password: ['', [Validators.minLength(4), Validators.maxLength(16)]],
       phone_number: null,
+      token: null,
       photo: false
     })
     this.form.patchValue(this.authService.me)
@@ -36,6 +44,10 @@ export class UserProfileComponent implements OnInit {
   ngOnInit() {
   }
 
+  get fieldsOptions(): any {
+    return fieldsOptions
+  }
+
   submit() {
     const data = Object.assign({}, this.form.value)
     delete data.phone_number
@@ -44,6 +56,7 @@ export class UserProfileComponent implements OnInit {
       .update(data)
       .subscribe(data => {
         this.form.get('photo').setValue(false)
+        this.form.get('token').setValue(null)
         this.setHasPhoto()
         this.notifyMessage.success('Perfil atualizado com sucesso!')
       }, responseError => {
@@ -73,6 +86,15 @@ export class UserProfileComponent implements OnInit {
 
   showErrors(){
     return Object.keys(this.errors).length != 0
+  }
+
+  openPhoneNumberAuthModal() {
+    this.phoneNumberAuthModalComponent.showModal()
+  }
+
+  onPhoneNumberVerification(event) {
+    this.firebaseAuth.getUser().then(user => this.form.get('phone_number').setValue(user.phoneNumber));
+    this.firebaseAuth.getToken().then(token => this.form.get('token').setValue(token))
   }
 
 }

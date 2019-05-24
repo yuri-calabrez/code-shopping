@@ -4,6 +4,7 @@ namespace CodeShopping\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
 use CodeShopping\Firebase\Auth as FirebaseAuth;
+use CodeShopping\Models\UserProfile;
 
 class PhoneNumberUnique implements Rule
 {

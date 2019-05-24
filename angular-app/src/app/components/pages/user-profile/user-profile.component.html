@@ -10,20 +10,37 @@
   <div class="col-md-12">
     <form [formGroup]="form" (submit)="submit()">
       <div class="form-group">
-        <label for="name">Nome</label>
-        <input type="text" id="name" class="form-control" formControlName="name">
+        <label [for]="fieldsOptions.name.label">Nome</label>
+        <input type="text" [id]="fieldsOptions.name.id" class="form-control" formControlName="name" isInvalid>
+        <field-error 
+          [field]="form.get('name')"
+          [messages]="fieldsOptions.name.validationMessages"
+          [label]="fieldsOptions.name.label"></field-error>
       </div>
       <div class="form-group">
-        <label for="email">E-mail</label>
-        <input type="text" id="email" class="form-control" formControlName="email">
+        <label [for]="fieldsOptions.email.label">E-mail</label>
+        <input type="email" [id]="fieldsOptions.email.id" class="form-control" formControlName="email">
+        <field-error 
+          [field]="form.get('email')"
+          [messages]="fieldsOptions.email.validationMessages"
+          [label]="fieldsOptions.email.label"></field-error>
       </div>
       <div class="form-group">
-        <label for="password">Senha</label>
-        <input type="text" id="password" class="form-control" formControlName="password">
+        <label [for]="fieldsOptions.password.label">Senha</label>
+        <input type="password" [id]="fieldsOptions.password.id" class="form-control" formControlName="password">
+        <field-error 
+          [field]="form.get('password')"
+          [messages]="fieldsOptions.password.validationMessages"
+          [label]="fieldsOptions.password.label"></field-error>
       </div>
       <div class="form-group">
         <label for="phone_number">Telefone</label>
-        <input type="text" id="phone_number" readonly class="form-control" formControlName="phone_number">
+        <div class="input-group">
+          <input type="text" id="phone_number" readonly class="form-control" formControlName="phone_number">
+          <div class="input-group-append">
+            <button class="btn btn-info" type="button" (click)="openPhoneNumberAuthModal()">Novo</button>
+          </div>
+        </div>
       </div>
       <div class="form-group">
         <label for="photo">Foto de perfil</label>
@@ -38,3 +55,4 @@
     </form>
   </div>
 </div>
+<phone-number-auth-modal (onSuccess)="onPhoneNumberVerification($event)"></phone-number-auth-modal>

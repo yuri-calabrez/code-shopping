@@ -30,7 +30,8 @@
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/select2/dist/css/select2.min.css",
               "node_modules/select2-bootstrap4-theme/dist/select2-bootstrap4.min.css",
-              "node_modules/@fancyapps/fancybox/dist/jquery.fancybox.min.css"
+              "node_modules/@fancyapps/fancybox/dist/jquery.fancybox.min.css",
+              "node_modules/firebaseui/dist/firebaseui.css"
             ],
             "scripts": [
               "node_modules/popper.js/dist/umd/popper.min.js",
