@@ -2,20 +2,26 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
-import { MainPage } from '../pages/main/main';
-
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
 import { LoginOptionsPage } from '../pages/login-options/login-options';
 import { LoginPhoneNumberPage } from '../pages/login-phone-number/login-phone-number';
 import { ResetPhoneNumberPage } from '../pages/reset-phone-number/reset-phone-number';
+import { ListPage } from '../pages/list/list';
+import { MainPage } from '../pages/main/main';
+import { CustomerCreatePage } from '../pages/customer-create/customer-create';
+
+import { StatusBar } from '@ionic-native/status-bar';
+import { SplashScreen } from '@ionic-native/splash-screen';
+
 import { FirebaseAuthProvider } from '../providers/auth/firebase-auth';
 import { AuthProvider } from '../providers/auth/auth';
+import { CustomerHttpProvider } from '../providers/http/customer-http';
+
+
 
 
 @NgModule({
@@ -26,12 +32,14 @@ import { AuthProvider } from '../providers/auth/auth';
     LoginOptionsPage,
     LoginPhoneNumberPage,
     ResetPhoneNumberPage,
+    CustomerCreatePage,
     MainPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -41,6 +49,7 @@ import { AuthProvider } from '../providers/auth/auth';
     LoginOptionsPage,
     LoginPhoneNumberPage,
     ResetPhoneNumberPage,
+    CustomerCreatePage,
     MainPage
   ],
   providers: [
@@ -48,7 +57,8 @@ import { AuthProvider } from '../providers/auth/auth';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     FirebaseAuthProvider,
-    AuthProvider
+    AuthProvider,
+    CustomerHttpProvider
   ]
 })
 export class AppModule {}

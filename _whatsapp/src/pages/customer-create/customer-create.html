@@ -1,0 +1,38 @@
+<!--
+  Generated template for the CustomerCreatePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar color="green-dark">
+    <ion-title>Crie seu usuário</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <form [formGroup]="form" (submit)="submit()">
+    <ion-list>
+      <ion-item>
+        <ion-label stacked>Nome</ion-label>
+        <ion-input type="text" formControlName="name"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>E-mail</ion-label>
+        <ion-input type="text" formControlName="email"></ion-input>
+      </ion-item>
+      <ion-input type="file" [hidden]="true" #inputFilePhoto (change)="onChoosePhoto($event.target.files)"></ion-input>
+      <button ion-button type="button" color="green-dark" (click)="selectPhoto()">Escolha sua foto de perfil</button>
+    </ion-list>
+    <ion-card *ngIf="photoPreview">
+      <ion-item>
+        <ion-avatar item-start>
+          <img [src]="photoPreview" alt="Foto">
+        </ion-avatar>
+        <h2>Foto de perfil escolhida</h2>
+        <ion-icon name="close" item-end (click)="photoPreview = null; this.form.get('photo').setValue(null)"></ion-icon>
+      </ion-item>
+    </ion-card>
+    <button type="submit" ion-button block color="green-dark" [disabled]="form.invalid">Criar perfil</button>
+  </form>
+</ion-content>
