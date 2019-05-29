@@ -14,6 +14,8 @@ declare const firebaseui
 @Injectable()
 export class FirebaseAuthProvider {
 
+  private ui
+
   constructor() {
     firebase.initializeApp(firebaseConfig)
   }
@@ -30,8 +32,22 @@ export class FirebaseAuthProvider {
         }
       }
     }
-    const ui = new firebaseui.auth.AuthUI(firebase.auth())
-    ui.start(selectorElement, uiConfig)
+   this.makeFormFirebaseUi(selectorElement, uiConfig)
+  }
+
+  private makeFormFirebaseUi(selectorElement, uiConfig) {
+    if (!this.ui) {
+      this.makeUiForm(selectorElement, uiConfig)
+    } else {
+      this.ui.delete().then(() => {
+        this.makeUiForm(selectorElement, uiConfig)
+      })
+    }
+  }
+
+  private makeUiForm(selectorElement, uiConfig) {
+    this.ui = new firebaseui.auth.AuthUI(firebase.auth())
+    this.ui.start(selectorElement, uiConfig)
   }
 
   get firebase() {

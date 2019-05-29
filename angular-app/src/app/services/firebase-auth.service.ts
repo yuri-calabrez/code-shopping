@@ -22,19 +22,23 @@ export class FirebaseAuthService {
     firebase.initializeApp(firebaseConfig)
   }
 
-  async makePhoneNumberForm(selectorElement: string) {
-    const firebaseui = await this.getFirebaseUI()
-    const uiConfig = {
-      signInOptions: [
-        firebase.auth.PhoneAuthProvider.PROVIDER_ID
-      ],
-      callbacks: {
-        signInSuccessWithAuthResult: (authResult, redirectUrl) => {
-          return false
+  async makePhoneNumberForm(selectorElement: string): Promise<any> {
+    await this.getFirebaseUI()
+    
+    return new Promise((resolve) => {
+      const uiConfig = {
+        signInOptions: [
+          firebase.auth.PhoneAuthProvider.PROVIDER_ID
+        ],
+        callbacks: {
+          signInSuccessWithAuthResult: (authResult, redirectUrl) => {
+            resolve(true)
+            return false
+          }
         }
       }
-    }
-    this.makeFormFirebaseUi(selectorElement, uiConfig)
+      this.makeFormFirebaseUi(selectorElement, uiConfig)
+    })
   }
 
   private makeFormFirebaseUi(selectorElement, uiConfig) {
