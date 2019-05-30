@@ -21,3 +21,7 @@ Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm
 Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('customers/phone-number-update/{token}', function($token){
+    return view('customer.phone_number_change', compact('token'));
+})->name('customers.web_phone_number_update');

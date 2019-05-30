@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, TextInput } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CustomerHttpProvider } from '../../providers/http/customer-http';
+import { MainPage } from '../main/main';
 
 /**
  * Generated class for the CustomerCreatePage page.
@@ -50,7 +51,7 @@ export class CustomerCreatePage {
     this.customerHttp
       .create(this.form.value)
       .subscribe(() => {
-        console.log('criado!!')
+        this.navCtrl.setRoot(MainPage)
       })
   }
 

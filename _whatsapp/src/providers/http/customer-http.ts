@@ -29,6 +29,15 @@ export class CustomerHttpProvider {
       )
   }
 
+  requestUpdatePhoneNumber(email: string): Observable<any> {
+    return fromPromise(this.firebaseAuth.getToken())
+      .pipe(
+        flatMap(token => {
+          return this.http.post<{token: string}>('http://localhost:8000/api/customers/phone_numbers', {email, token})
+        })
+      )
+  }
+
   private formDataToSend(data: Customer) {
     const formData = new FormData()
     formData.append('name', data.name)

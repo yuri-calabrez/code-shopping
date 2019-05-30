@@ -31,6 +31,23 @@ class UserProfile extends Model
     }
 
     /**
+     * Update customer phone number
+     *
+     * @param string $token
+     * @return self
+     */
+    public static function updatePhoneNumber(string $token): self
+    {
+        $profile = self::where('phone_number_token_to_change', $token)->firstOrFail();
+        $phoneNumber = base64_decode($token);
+        $profile->phone_number = $phoneNumber;
+        $profile->phone_number_token_to_change = null;
+        $profile->save();
+
+        return $profile;
+    }
+
+    /**
      * Save customer profile
      *
      * @param User $user
