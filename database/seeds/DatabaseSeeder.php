@@ -17,7 +17,8 @@ class DatabaseSeeder extends Seeder
             ProductsTableSeeder::class,
             ProductInputsTableSeeder::class,
             ProductOutputsTableSeeder::class,
-            ProductPhotosTableSeeder::class
+            ProductPhotosTableSeeder::class,
+            ChatGroupsTableSeeder::class
         ]);
     }
 }
