@@ -66,6 +66,7 @@ class ChatGroupController extends Controller
      */
     public function destroy(ChatGroup $chat_group)
     {
+        $chat_group->deletePhoto();
         $chat_group->delete();
         
         return response()->json([], 204);

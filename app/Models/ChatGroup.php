@@ -92,7 +92,7 @@ class ChatGroup extends Model
      * @param UserProfile $userProfile
      * @return void
      */
-    private function deletePhoto()
+    public function deletePhoto()
     {
         $dir = self::photoDir();
         \Storage::disk('public')->delete("{$dir}/{$this->photo}");

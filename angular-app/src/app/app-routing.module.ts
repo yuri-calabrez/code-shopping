@@ -9,6 +9,7 @@ import { UserListComponent } from './components/pages/user/user-list/user-list.c
 import { ProductInputListComponent } from './components/pages/product-input/product-input-list/product-input-list.component';
 import { ProductPhotoManagerComponent } from './components/pages/product-photo-manager/product-photo-manager.component';
 import { UserProfileComponent } from './components/pages/user-profile/user-profile.component';
+import { ChatGroupListComponent } from './components/pages/chat-group/chat-group-list/chat-group-list.component';
 
 const routes: Routes = [
   {
@@ -47,6 +48,11 @@ const routes: Routes = [
   {
     path: 'profile',
     component: UserProfileComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'chat-groups/list',
+    component: ChatGroupListComponent,
     canActivate: [AuthGuard]
   },
   {
