@@ -20,7 +20,7 @@
       <tr *ngFor="let chatGroup of chatGroups | paginate: {itemsPerPage: pagination.itemsPerPage, currentPage: pagination.page, totalItems: pagination.totalItems}"> 
         <td>{{ chatGroup.id }}</td>
         <td>{{ chatGroup.name }}</td>
-        <td>{{ chatGroup.user_count }}</td>
+        <td>{{ chatGroup.count_users }}</td>
         <td>{{ chatGroup.created_at.date | date: 'dd/MM/yyyy' }}</td>
         <td>
           <a href="javascript:void(0);" (click)="chatGroupEditService.showModalEdit(chatGroup.id)" class="btn btn-primary btn-sm">
