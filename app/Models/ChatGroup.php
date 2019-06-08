@@ -130,16 +130,34 @@ class ChatGroup extends Model
     {
         return self::DIR_CHAT_GROUPS;
     }
-    
-    public function getPhotoUrlAttribute()
-    {
-        $path = self::photoDir();
-        return asset("storage/{$path}/{$this->photo}");
-    }
 
     public function users() 
     {
         return $this->belongsToMany(User::class);
+    }
+
+    protected function syncFirebaseRemove()
+    {
+        $this->syncFirebaseSet();
+    }
+
+    protected function syncFirebaseSet()
+    {
+        $data = $this->toArray();
+        unset($data['photo']);
+        $data['photo_url'] = $this->photo_url_base;
+        $this->getModelReference()->set($data);
+    }
+
+    public function getPhotoUrlAttribute()
+    {
+        return asset("storage/{$this->photo_url_base}");
+    }
+
+    public function getPhotoUrlBaseAttribute()
+    {
+        $path = self::photoDir();
+        return "{$path}/{$this->photo}";
     }
 
 }

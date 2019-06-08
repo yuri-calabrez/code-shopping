@@ -1,5 +1,5 @@
 page-main {
-    ion-content > .scroll-content {
+    .hide-scroll-content > .scroll-content {
         overflow-y: hidden;
     }
 }
