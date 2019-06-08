@@ -27,6 +27,7 @@
     "firebase": "^5.2.0",
     "firebaseui": "^3.1.1",
     "ionic-angular": "3.9.3",
+    "ionic2-super-tabs": "^4.3.0",
     "ionicons": "3.0.0",
     "rxjs": "5.5.11",
     "scriptjs": "^2.5.8",

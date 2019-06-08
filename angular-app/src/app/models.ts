@@ -54,3 +54,13 @@ export interface UserProfile {
     phone_number: string
     has_photo: boolean
 }
+
+export interface ChatGroup {
+    id?: number
+    name: string
+    photo?: File
+    count_users?: number
+    photo_url?: string
+    readonly created_at?: {date: string}
+    readonly updated_at?: {date: string}
+}
