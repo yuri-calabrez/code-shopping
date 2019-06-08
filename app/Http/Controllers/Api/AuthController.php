@@ -39,6 +39,8 @@ class AuthController extends Controller
         $profile = UserProfile::where('phone_number', $user->phoneNumber)->first();
         $token = null;
         if ($profile) {
+            $profile->firebase_uid = $user->uid;
+            $profile->save();
             $token = \Auth::guard('api')->login($profile->user);
         }
         return $this->responseToken($token);

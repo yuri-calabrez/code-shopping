@@ -23,6 +23,8 @@ class UsersTableSeeder extends Seeder
                 'photo' => $this->getAdminPhoto()
             ]);
             \Illuminate\Database\Eloquent\Model::unguard();
+            $user->profile->firebase_uid = 'MIktnFO6gjWA6vdSU1QT0KBdvaF3';
+            $user->profile->save();
         });
 
         factory(User::class, 1)->create([
@@ -34,9 +36,17 @@ class UsersTableSeeder extends Seeder
                 'phone_number' => '+16505551231'
             ]);
             \Illuminate\Database\Eloquent\Model::unguard();
+            $user->profile->firebase_uid = 'gLtitVoW2ySMUMjkFHTRCKIjpXp1';
+            $user->profile->save();
         });
         
-        factory(User::class, 20)->create(['role' => User::ROLE_CUSTOMER]);
+        factory(User::class, 20)
+            ->create(['role' => User::ROLE_CUSTOMER])
+            ->each(function($user, $key){
+                $user->profile->phone_number = "+165055510.{$key}";
+                $user->profile->firebase_uid = 'user-{$key}';
+                $user->profile->save();
+            });
     }
 
     public function getAdminPhoto()

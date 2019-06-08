@@ -20,6 +20,7 @@ class CreateUserProfilesTable extends Migration
             $table->string('photo')->nullable();
             $table->string('phone_number')->unique();
             $table->string('phone_number_token_to_change')->nullable();
+            $table->string('firebase_uid')->nullable();
             $table->timestamps();
         });
     }
