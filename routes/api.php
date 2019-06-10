@@ -44,6 +44,7 @@ Route::group(['namespace' => 'Api\\', 'as' => 'api.'], function(){
             Route::patch('users/{user}/restore', 'UserController@restore');
             Route::resource('users', 'UserController', ['except' => ['create', 'edit']]);
             Route::resource('chat_groups', 'ChatGroupController');
+            Route::resource('chat_groups.users', 'ChatGroupUserController', ['only' => ['index', 'store', 'destroy']]);
         });
     });
 });

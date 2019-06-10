@@ -4,9 +4,12 @@ namespace CodeShopping\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
+use CodeShopping\Firebase\FirebaseSync;
 
 class UserProfile extends Model
 {
+    use FirebaseSync;
+
     const BASE_PATH = 'app/public';
     const DIR_USERS  = 'users';
     const DIR_USER_PHOTO = self::DIR_USERS."/photos";
@@ -149,7 +152,17 @@ class UserProfile extends Model
 
     public function getPhotoUrlAttribute()
     {
+        return $this->photo ? asset("storage/{$this->photo_url_base}") : $this->photo_url_base;
+    }
+
+    public function getPhotoUrlBaseAttribute()
+    {
         $path = self::photoDir();
-        return $this->photo ? asset("storage/{$path}/{$this->photo}") : 'https://www.gravatar.com/avatar/nouser.jpg';
+        return $this->photo ? "{$path}/{$this->photo}" : 'https://www.gravatar.com/avatar/nouser.jpg';
+    }
+
+    protected function syncFirebaseSet()
+    {
+        $this->user->syncFirebaseSetCustom();
     }
 }
