@@ -46,7 +46,7 @@ class ChatGroupUserResource extends JsonResource
             $array['links'] = $data->links;
             $array['meta'] = $data->meta;
         } else {
-            $data['data']['users'] = $usersResponse;
+            $array['data']['users'] = $usersResponse;
         }
 
         return $array;

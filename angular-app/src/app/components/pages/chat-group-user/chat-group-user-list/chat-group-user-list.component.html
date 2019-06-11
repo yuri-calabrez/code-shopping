@@ -1,0 +1,37 @@
+<div class="row">
+  <h1>Membros do grupo - {{ chatGroup?.name }} | Total {{  chatGroup?.count_users}}</h1>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <td colspan="5">
+          
+        </td>
+      </tr>
+      <tr>
+        <th style="width: 5%">ID</th>
+        <th style="width: 65%">Nome</th>
+        <th style="width: 10%">Email</th>
+        <th style="width: 10%">Telefone</th>
+        <th style="width: 10%"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users | paginate: {itemsPerPage: pagination.itemsPerPage, currentPage: pagination.page, totalItems: pagination.totalItems}"> 
+        <td>{{ user.id }}</td>
+        <td>{{ user.name }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.profile.phone_number }}</td>
+        <td>
+          <a href="javascript:void(0)" class="btn btn-danger">
+            <i class="fas fa-trash-alt"></i>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <pagination-controls 
+    (pageChange)="pageChanged($event)" 
+    previousLabel="Anterior"
+    nextLabel="Próximo"></pagination-controls>
+</div>

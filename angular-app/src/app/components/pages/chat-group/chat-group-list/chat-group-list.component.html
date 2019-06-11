@@ -9,9 +9,10 @@
       </tr>
       <tr>
         <th style="width: 5%;">ID</th>
-        <th style="width: 55%;">Nome</th>
+        <th style="width: 40%;">Nome</th>
         <th style="witdh: 10%">Usuários</th>
         <th style="width: 15%;">Criado em</th>
+        <th style="width: 10%;">Membros</th>
         <th style="width: 10%;">Editar</th>
         <th style="width: 10%;">Excluir</th>
       </tr>
@@ -22,6 +23,11 @@
         <td>{{ chatGroup.name }}</td>
         <td>{{ chatGroup.count_users }}</td>
         <td>{{ chatGroup.created_at.date | date: 'dd/MM/yyyy' }}</td>
+        <td>
+          <a href="javascript:void(0);" class="btn btn-info btn-sm" [routerLink]="['/chat-groups', chatGroup.id, 'users', 'list']">
+            <i class="fas fa-users"></i>
+          </a>
+        </td>
         <td>
           <a href="javascript:void(0);" (click)="chatGroupEditService.showModalEdit(chatGroup.id)" class="btn btn-primary btn-sm">
             <i class="fas fa-edit"></i>
