@@ -4,6 +4,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { SearchParams, SearchParamsBuilder } from './http-resource';
 import { Observable } from 'rxjs';
 import { ChatGroup, User } from 'src/app/models';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +23,14 @@ export class ChatGroupUserHttpService {
 
     return this.http
       .get<{data: {chat_group: ChatGroup, users: User[]}, meta: any}>(this.getBaseUrl(chatgroupId), {params})
+  }
+
+  create(chatGroupId: number, usersId: number[]): Observable<{chat_group: ChatGroup, users: User[]}> {
+    return this.http
+      .post<{data: {chat_group: ChatGroup, users: User[]}}>(this.getBaseUrl(chatGroupId), {users: usersId})
+      .pipe(
+        map(response => response.data)
+      )
   }
 
   private getBaseUrl(chatgroupId: number, userId: number = null): string {

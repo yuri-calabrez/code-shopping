@@ -1,0 +1,13 @@
+<form class="form" (submit)="submit()">
+  <div class="form-group">
+    <select2 class="form-control undo-form-control"
+      [width]="'100%'"
+      [data]="select2Options.data"
+      [options]="select2Options.options"
+      (valueChanged)="usersId = $event.value">
+    </select2>  
+  </div>
+  <div class="col-md-5">
+    <button class="btn btn-primary" type="submit">Incluir usuários</button>
+  </div>
+</form>

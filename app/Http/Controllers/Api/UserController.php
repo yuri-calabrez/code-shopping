@@ -9,6 +9,7 @@ use CodeShopping\Http\Resources\UserResource;
 use CodeShopping\Http\Requests\UserRequest;
 use CodeShopping\Common\OnlyTrashedTrait;
 use CodeShopping\Events\UserCreatedEvent;
+use CodeShopping\Http\Filters\UserFilter;
 
 class UserController extends Controller
 {
@@ -20,9 +21,12 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
+        $filter = app(UserFilter::class);
         $query = User::query();
         $query = $this->onlyTrashedIfRequested($request, $query);
-        return UserResource::collection($query->paginate());
+        $filterQuery = $query->filtered($filter);
+        $users = $filter->hasFilterParameter() ? $filterQuery->get() : $filterQuery->paginate(10);
+        return UserResource::collection($users);
     }
 
 

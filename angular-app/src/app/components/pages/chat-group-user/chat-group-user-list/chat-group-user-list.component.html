@@ -5,7 +5,10 @@
     <thead>
       <tr>
         <td colspan="5">
-          
+          <chat-group-user-new 
+            [chatGroupId]="chatGroupId" 
+            (onSuccess)="onInsertSuccess($event)"
+            (onError)="onInsertError($event)"></chat-group-user-new>
         </td>
       </tr>
       <tr>

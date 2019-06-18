@@ -7,12 +7,14 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use CodeShopping\Firebase\FirebaseSync;
+use Mnabialek\LaravelEloquentFilter\Traits\Filterable;
 
 class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
     use SoftDeletes;
     use FirebaseSync;
+    use Filterable;
 
     const ROLE_SELLER = 1;
     const ROLE_CUSTOMER = 2;
