@@ -33,6 +33,11 @@ export class ChatGroupUserHttpService {
       )
   }
 
+  destroy(chatGroupId: number, userId: number): Observable<any> {
+    return this.http
+      .delete(`${this.getBaseUrl(chatGroupId, userId)}`)
+  }
+
   private getBaseUrl(chatgroupId: number, userId: number = null): string {
     let baseUrl = `${this.baseApi}/chat_groups/${chatgroupId}/users`
     if (userId) {

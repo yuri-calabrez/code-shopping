@@ -1,0 +1,14 @@
+<app-modal>
+    <h5 modal-title>Exclusão de membro do grupo - {{ chatGroup?.name }}</h5>
+
+    <div modal-body>
+      <div class="modal-body">
+         Deseja excluir o membro {{ user?.name }}?
+      </div>
+    </div>
+
+    <div modal-footer>
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+      <button type="submit" class="btn btn-danger" (click)="destroy()">Excluir</button>
+    </div>
+  </app-modal>

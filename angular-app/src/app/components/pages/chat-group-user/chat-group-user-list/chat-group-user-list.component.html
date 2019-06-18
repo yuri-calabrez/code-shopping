@@ -26,7 +26,7 @@
         <td>{{ user.email }}</td>
         <td>{{ user.profile.phone_number }}</td>
         <td>
-          <a href="javascript:void(0)" class="btn btn-danger">
+          <a href="javascript:void(0)" class="btn btn-danger" (click)="openModalDelete(user.id)">
             <i class="fas fa-trash-alt"></i>
           </a>
         </td>
@@ -38,3 +38,8 @@
     previousLabel="Anterior"
     nextLabel="Próximo"></pagination-controls>
 </div>
+
+<chat-group-user-delete-modal 
+  [chatGroupId]="chatGroupId" 
+  [userId]="userIdToDelete"
+  (onSuccess)="getUsers()"></chat-group-user-delete-modal>
