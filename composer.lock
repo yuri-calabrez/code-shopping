@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e6a5aceb290cc57d5dae77e0f6734010",
+    "content-hash": "55ea574a47d59f23292c3f74d5cc2f19",
     "packages": [
         {
             "name": "cocur/slugify",
@@ -439,6 +439,56 @@
                 "parser"
             ],
             "time": "2018-03-08T01:11:30+00:00"
+        },
+        {
+            "name": "fico7489/laravel-pivot",
+            "version": "2.2.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fico7489/laravel-pivot.git",
+                "reference": "09012a3d6ed508eccb3ebf2c5e7d1512c8003664"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fico7489/laravel-pivot/zipball/09012a3d6ed508eccb3ebf2c5e7d1512c8003664",
+                "reference": "09012a3d6ed508eccb3ebf2c5e7d1512c8003664",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "5.6.*"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "2.*",
+                "orchestra/testbench": "3.6.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Fico7489\\Laravel\\Pivot\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Filip Horvat",
+                    "email": "filip.horvat@am2studio.hr",
+                    "homepage": "http://am2studio.hr",
+                    "role": "Developer"
+                }
+            ],
+            "description": "This package introduces new eloquent events for sync(), attach(), detach() or updateExistingPivot() methods on BelongsToMany relation.",
+            "homepage": "https://github.com/fico7489/laravel-pivot",
+            "keywords": [
+                "eloquent events",
+                "eloquent extra events",
+                "laravel BelongsToMany events",
+                "laravel pivot events",
+                "laravel sync events"
+            ],
+            "time": "2018-09-03T18:08:25+00:00"
         },
         {
             "name": "fideloper/proxy",

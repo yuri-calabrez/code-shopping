@@ -7,6 +7,7 @@
     "require": {
         "php": "^7.1.3",
         "cviebrock/eloquent-sluggable": "4.5.*",
+        "fico7489/laravel-pivot": "2.2.*",
         "fideloper/proxy": "^4.0",
         "kreait/firebase-php": "4.0",
         "laravel/framework": "5.6.*",

@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\UploadedFile;
 use CodeShopping\Firebase\FirebaseSync;
+use Fico7489\Laravel\Pivot\Traits\PivotEventTrait;
 
 class ChatGroup extends Model
 {
-    use SoftDeletes, FirebaseSync;
+    use SoftDeletes, FirebaseSync, PivotEventTrait;
 
     const BASE_PATH = 'app/public';
     const DIR_CHAT_GROUPS  = 'chat_groups';
@@ -158,6 +159,18 @@ class ChatGroup extends Model
     {
         $path = self::photoDir();
         return "{$path}/{$this->photo}";
+    }
+
+    protected function syncPivotAttached($model, $relationName, $pivotIds, $pivotIdsAttribute)
+    {
+        $users = User::whereIn('id', $pivotIds)->get();
+        $data = [];
+
+        foreach($users as $user) {
+            $data["chat_groups/{$model->id}/users/{$user->profile->firebase_uid}"] = true;
+        }
+        
+        $this->getFirebaseDatabase()->getReference()->update($data);
     }
 
 }
