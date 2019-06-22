@@ -1,5 +1,5 @@
-<ion-item no-lines text-wrap class="chat-content-right">
-  <strong>Nome do usuário</strong><br>
-  <span>Conteúdo da mensagem</span>
-  <p text-right class="chat-content-datetime">10/10/2018</p>
+<ion-item no-lines text-wrap [ngClass]="{'chat-content-left': !(message.user_id | isCurrentUser), 'chat-content-right': message.user_id | isCurrentUser}">
+  <strong>{{(message.user | async)?.name}}</strong><br>
+  <span>{{message.content}}</span><br>
+  <p text-right class="chat-content-datetime">{{message.created_at | amDateFormat: 'DD/MM/YYYY HH:mm'}}</p>
 </ion-item>

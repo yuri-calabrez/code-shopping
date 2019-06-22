@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { ChatMessage } from '../../../app/model';
 
 /**
  * Generated class for the ChatContentDetailComponent component.
@@ -12,11 +13,11 @@ import { Component } from '@angular/core';
 })
 export class ChatContentDetailComponent {
 
-  text: string;
+  @Input()
+  message: ChatMessage
 
   constructor() {
-    console.log('Hello ChatContentDetailComponent Component');
-    this.text = 'Hello World';
+    
   }
 
 }

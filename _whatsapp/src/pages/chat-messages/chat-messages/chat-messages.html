@@ -17,8 +17,8 @@
 
 <ion-content padding class="chat-bg">
   <ng-container *ngFor="let message of messages">
-    <chat-content-left></chat-content-left>
-    <chat-content-right></chat-content-right>
+    <chat-content-left [message]="message" *ngIf="!(message.user_id | isCurrentUser)"></chat-content-left>
+    <chat-content-right [message]="message" *ngIf="message.user_id | isCurrentUser"></chat-content-right>
   </ng-container>
 </ion-content>
 
