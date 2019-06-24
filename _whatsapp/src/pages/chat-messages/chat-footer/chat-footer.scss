@@ -1,0 +1,31 @@
+chat-footer {
+    ion-list {
+        margin: 0 !important;
+        ion-item-sliding {
+            ion-item {
+                ion-label {
+                    margin: 0 !important;
+                    line-height: 1 !important; 
+                }
+            }
+        }
+    }
+    .item-content {
+        border-radius: 20px;
+    }
+
+    ion-textarea {
+        height: 56px;
+    }
+
+    .btn-send-message{
+        border-radius: 50%;
+        width: 56px;
+        height: 56px;
+    }
+
+    .no-padding-no-margin {
+        padding: 0;
+        margin: 0;
+    }
+}

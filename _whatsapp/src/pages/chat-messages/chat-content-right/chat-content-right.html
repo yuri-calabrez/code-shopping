@@ -1,0 +1,9 @@
+<!-- Generated template for the ChatContentRightComponent component -->
+<ion-row>
+  <ion-col col-9 col-sm-10 col-lg-11 col-xl-11>
+    <chat-content-detail [message]="message"></chat-content-detail>
+  </ion-col>
+  <ion-col col-3 col-sm-2 col-lg-1 col-xl-1>
+    <chat-avatar position="start" [photo]="(message.user | async)?.photo_url"></chat-avatar>
+  </ion-col>
+</ion-row>

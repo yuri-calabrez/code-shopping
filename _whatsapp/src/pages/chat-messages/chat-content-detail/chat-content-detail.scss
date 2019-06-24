@@ -1,0 +1,58 @@
+chat-content-detail {
+    $chat-content-left: #ffffff;
+    $chat-content-right: #e1ffc7;
+
+    %chat-content {
+        position: relative;
+        border-radius: .4em;
+        overflow: visible;
+        contain: none;
+
+        ion-label {
+            margin: 3px 0 0;
+            line-height: 1 !important;
+        }
+    }
+
+    .chat-content-left {
+        @extend %chat-content;
+        background-color: $chat-content-left;
+    }
+
+    .chat-content-right {
+        @extend %chat-content;
+        background-color: $chat-content-right;
+    }
+
+    %chat-content-after {
+        content: '';
+        position: absolute;
+        top: 30px;
+        width: 0;
+        height: 0;
+        border: 20px solid transparent;
+        border-top: 0;
+        margin-top: -10px;
+    }
+
+    .chat-content-left:after {
+        @extend %chat-content-after;
+        left: 0;
+        border-right-color: $chat-content-left;
+        border-left: 0;
+        margin-left: -20px; 
+    }
+
+    .chat-content-right:after {
+        @extend %chat-content-after;
+        right: 0;
+        border-left-color: $chat-content-right;
+        border-right: 0;
+        margin-right: -20px;
+        z-index: 99999; 
+    }
+
+    .chat-content-datetime {
+        font-size: 1.2rem !important;
+    }
+}

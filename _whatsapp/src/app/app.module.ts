@@ -6,6 +6,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { SuperTabsModule } from 'ionic2-super-tabs';
 
+import { JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt'
+
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -24,8 +26,18 @@ import { AuthProvider } from '../providers/auth/auth';
 import { CustomerHttpProvider } from '../providers/http/customer-http';
 
 import { ChatGroupListComponent } from '../components/chat-group-list/chat-group-list';
+import { ChatMessagesPageModule } from '../pages/chat-messages/chat-messages/chat-messages.module';
 
-
+function jwtFactory(authService: AuthProvider) {
+  return {
+    whitelistedDomains: [
+      new RegExp('localhost:8000/*')
+    ],
+    tokenGetter: () => {
+      return authService.getToken()
+    }
+  }
+}
 
 
 @NgModule({
@@ -45,7 +57,15 @@ import { ChatGroupListComponent } from '../components/chat-group-list/chat-group
     IonicModule.forRoot(MyApp),
     HttpClientModule,
     ReactiveFormsModule,
-    SuperTabsModule.forRoot()
+    SuperTabsModule.forRoot(),
+    ChatMessagesPageModule,
+    JwtModule.forRoot({
+      jwtOptionsProvider: {
+        provide: JWT_OPTIONS,
+        useFactory: jwtFactory,
+        deps: [AuthProvider]
+      }
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
