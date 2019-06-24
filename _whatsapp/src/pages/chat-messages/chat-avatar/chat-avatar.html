@@ -1,5 +1,8 @@
-<ion-item color="beige-light">
-  <ion-avatar item-start>
-    <img src="https://www.gravatar.com/avatar/nouser.jpg" alt="">
+<ion-item color="beige-light" no-lines>
+  <ion-avatar *ngIf="position === 'start'" item-start>
+    <img [src]="photo | buildUrl" alt="">
+  </ion-avatar>
+  <ion-avatar *ngIf="position === 'end'" item-end>
+    <img [src]="photo | buildUrl" alt="">
   </ion-avatar>
 </ion-item>
