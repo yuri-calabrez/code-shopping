@@ -2,6 +2,8 @@
 
 namespace CodeShopping\Firebase;
 
+use CodeShopping\Models\ChatGroup;
+
 class ChatMessage
 {
     use FirebaseSync;
@@ -31,6 +33,12 @@ class ChatMessage
             'created_at' => ['.sv' => 'timestamp'],
             'user_id' => $data['firebase_uid']
         ]);
+    }
+
+    public function deleteMessages(ChatGroup $chatGroup)
+    {
+        $this->chatGroup = $chatGroup;
+        $this->getMessagesReference()->remove();
     }
 
     private function getMessagesReference()
