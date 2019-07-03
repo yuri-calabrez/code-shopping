@@ -6,13 +6,13 @@
 
           <ion-col col-10 col-sm-10 col-md-11 col-xl-11>
             <ion-item no-lines class="item-content">
-              <ion-textarea></ion-textarea>
+              <ion-textarea [(ngModel)]="text"></ion-textarea>
               <ion-icon name="images" item-end></ion-icon>
             </ion-item>
           </ion-col>
 
           <ion-col col-2 col-sm-2 col-md-1 col-xl-1 class="no-padding-no-margin">
-            <button ion-button class="btn-send-message" color="green-dark">
+            <button ion-button class="btn-send-message" color="green-dark" (click)="sendMessage()">
               <ion-icon name="send"></ion-icon>
             </button>
           </ion-col>

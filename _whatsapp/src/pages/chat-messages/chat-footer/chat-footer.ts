@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ChatMessageHttpProvider } from '../../../providers/http/chat-message-http';
 
 /**
  * Generated class for the ChatFooterComponent component.
@@ -12,11 +13,17 @@ import { Component } from '@angular/core';
 })
 export class ChatFooterComponent {
 
-  text: string;
+  text: string = '';
+  messageType: string = 'text'
 
-  constructor() {
-    console.log('Hello ChatFooterComponent Component');
-    this.text = 'Hello World';
+  constructor(private chatMessageHttp: ChatMessageHttpProvider) {
+    
+  }
+
+  sendMessage() {
+    this.chatMessageHttp
+      .create(1, {content: this.text, type: this.messageType})
+      .subscribe(() => console.log('foi'))
   }
 
 }

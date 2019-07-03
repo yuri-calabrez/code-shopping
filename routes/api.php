@@ -29,7 +29,8 @@ Route::group(['namespace' => 'Api\\', 'as' => 'api.'], function(){
 
     Route::group(['middleware' => ['auth:api', 'jwt.refresh']], function(){
         Route::patch('profile', 'UserProfileController@update');
-
+        Route::resource('chat_groups.messages', 'ChatMessageFbController', ['only' => ['store']]);
+        
         Route::group(['middleware' => 'can:is_seller'], function () {
             Route::post('logout', 'AuthController@logout')->name('logout');
             Route::get('me', 'AuthController@me')->name('me');
