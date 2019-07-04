@@ -24,6 +24,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { FirebaseAuthProvider } from '../providers/auth/firebase-auth';
 import { AuthProvider } from '../providers/auth/auth';
 import { CustomerHttpProvider } from '../providers/http/customer-http';
+import { ChatMessageHttpProvider } from '../providers/http/chat-message-http';
 
 import { ChatGroupListComponent } from '../components/chat-group-list/chat-group-list';
 import { ChatMessagesPageModule } from '../pages/chat-messages/chat-messages/chat-messages.module';
@@ -85,7 +86,8 @@ function jwtFactory(authService: AuthProvider) {
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     FirebaseAuthProvider,
     AuthProvider,
-    CustomerHttpProvider
+    CustomerHttpProvider,
+    ChatMessageHttpProvider
   ]
 })
 export class AppModule {}
