@@ -35,3 +35,5 @@ Thumbs.db
 UserInterfaceState.xcuserstate
 
 src/app/fb-config.ts
+src/environments/environment.prod.ts
+src/environments/environment.ts
